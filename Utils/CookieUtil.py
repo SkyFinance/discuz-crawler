@@ -1,6 +1,6 @@
 class CookieUtil:
     @staticmethod
-    def CookiesToDict(self, cookiesString: str) ->dict:
+    def CookiesToDict(cookiesString: str) ->dict:
         """将从浏览器获得的字符串的Cookie整合为字典形式
 
         Args:

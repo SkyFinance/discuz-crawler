@@ -1,8 +1,9 @@
 from PIL.Image import Image
 
 class SliderUtil:
+
     @staticmethod
-    def GetDistance(self,bgImage:Image,fullbgImage:Image) -> int:
+    def GetDistance(bgImage:Image,fullbgImage:Image) -> int:
         """获取缺口与起点的距离
 
         Args:
@@ -15,13 +16,13 @@ class SliderUtil:
         distance = 60
         for i in range(distance,fullbgImage.size[0]):
             for j in range(fullbgImage.size[1]):
-                if (not self.isPixelEqual(fullbgImage,bgImage,i,j)):
+                if (not SliderUtil.isPixelEqual(fullbgImage,bgImage,i,j)):
                     distance = i
                     return distance-5
         return distance
     
     @staticmethod
-    def isPixelEqual(self,bgImage:Image,fullbgImage:Image,x:int,y:int) -> bool:
+    def isPixelEqual(bgImage:Image,fullbgImage:Image,x:int,y:int) -> bool:
         """判断像素是否相等,有一定阈值
 
         Args:
@@ -42,7 +43,7 @@ class SliderUtil:
         return False
 
     @staticmethod
-    def GenerateTracks(self,distance:int) -> dict:
+    def GenerateTracks(distance:int) -> dict:
         """生成轨迹列表
 
         Args:
