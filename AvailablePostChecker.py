@@ -9,15 +9,14 @@ class AvailablePostChecker:
         self.cookie = ConfigLoader().GetSiteCookie()
         pass
 
-    def BuildPostUrls(self):
+    def BuildPostUrls(self) -> list:
         urls = []
-        for i in range(100,110):
+        for i in range(1,5):
             urls.append(f"https://live.acgyouxi.xyz/thread-{i}-1-1.html")
         return urls
     
-    def IsAvailable(self,html):
-        selector = etree.HTML(html)
-        pass
+    def IsAvailable(self,html:str) -> bool:
+        return html.find("抱歉，指定的主题不存在或已被删除或正在被审核") == -1
 
     async def GetPost(self,url):
         async with aiohttp.ClientSession(cookies=self.cookie) as session:
