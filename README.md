@@ -1,37 +1,64 @@
 # discuz-crawler
 
-#### 介绍
+### 介绍
 使用selenium对Discuz建站的论坛发布资源进行爬取，自动评论获取隐藏内容，转存飞猫云
 
-#### 软件架构
-软件架构说明
+### 目标论坛
+[ACG次元网](https://live.acgyouxi.xyz)
 
+### 论坛简介
+该论坛访问必须登录，每个话题需要回复获取隐藏内容，隐藏内容中有资源链接。本项目主要获取其中的飞猫云链接并转存到橘猫云，转存按钮有滑块验证码。
 
-#### 安装教程
+ps:飞猫云需要开通VIP
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+### 软件架构
+| 名称 | 描述 |
+| --- | --- |
+| Selenium | 模拟操作浏览器 |
+| Pyyaml | 读取yaml格式配置文件 |
+| Pillow | 图像处理标准库 |
 
-#### 使用说明
+### 使用教程
+1. 安装依赖
+```
+pip -r requirements.txt
+```
+2. 下载驱动
+   
+   根据自己的浏览器版本下载对应驱动
+- Edge驱动: https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/
+- Chrome驱动: https://npm.taobao.org/mirrors/chromedriver
+3. 配置驱动
+   
+   - 打开config.yml，在driver的path项中输入驱动路径
+   ```
+   driver: 
+        path: ./chromedriver.exe
+   ```
+    - 在driver的type项中输入驱动类型(Edge/Chrome)
+   ```
+   driver: 
+        type: Chrome
+   ```
+4. 配置Cookie
+   
+   在cookies配置项中分别写入目标论坛和飞猫云的Cookie
+    _____
+    如何获取Cookie?
+    _____
+    1. 登录目标网站
+   ![](./Image/readme_01.png)
+    2. 按F12打开开发者工具
+   ![](./Image/readme_02.png)
+    3. 切换到"网络"选项卡
+   ![](./Image/readme_03.png)
+    4. 点击"文档"按钮
+   ![](./Image/readme_04.png)
+    5. 刷新当前页面，选中开发者工具中出现的项，在请求头部分中找到cookie项，复制"cookie: "之后的值
+   ![](./Image/readme_05.png)
+    6. 飞猫云cookie获取同理
+5. 运行程序
+   ```
+   python Crawler.py
+   ```
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### 参与贡献
-
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
-
-
-#### 特技
-
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
