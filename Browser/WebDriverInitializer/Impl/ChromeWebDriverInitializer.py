@@ -1,9 +1,11 @@
 from webbrowser import Chrome
+
+from selenium import webdriver
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+
 from ConfigLoader import ConfigLoader
 from ..WebDriverInitializer import WebDriverInitializer
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+
 
 class ChromeWebDriverInitializer(WebDriverInitializer):
 

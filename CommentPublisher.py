@@ -1,8 +1,11 @@
-from loguru import logger
-from DataStore.DataStore import DataStore
-from ConfigLoader import ConfigLoader
-import requests
 from time import sleep
+
+import requests
+from loguru import logger
+
+from ConfigLoader import ConfigLoader
+from DataStore.DataStore import DataStore
+
 
 class CommentPublisher:
     def __init__(self) -> None:

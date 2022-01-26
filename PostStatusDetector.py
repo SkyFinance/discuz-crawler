@@ -1,10 +1,11 @@
-import aiohttp
 import asyncio
-from aiohttp import client_exceptions
-from ConfigLoader import ConfigLoader
 import re
+
+import aiohttp
+from aiohttp import client_exceptions
 from loguru import logger
 
+from ConfigLoader import ConfigLoader
 from DataStore.DataStore import DataStore
 
 

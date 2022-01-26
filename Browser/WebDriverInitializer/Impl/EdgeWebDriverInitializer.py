@@ -1,4 +1,5 @@
 from msedge.selenium_tools import Edge, EdgeOptions
+
 from ConfigLoader import ConfigLoader
 from ..WebDriverInitializer import WebDriverInitializer
 

@@ -42,7 +42,7 @@ ps:飞猫云需要开通VIP
 ### 使用教程
 1. 安装依赖
 ```
-pip -r requirements.txt
+pip install -r requirements.txt
 ```
 2. 下载驱动
    

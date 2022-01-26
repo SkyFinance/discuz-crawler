@@ -1,9 +1,11 @@
-from loguru import logger
-import sys
 import getopt
-from PostStatusDetector import PostStatusDetector
-from CommentPublisher import CommentPublisher
+import sys
+
+from loguru import logger
+
 from Banner import Banner
+from CommentPublisher import CommentPublisher
+from PostStatusDetector import PostStatusDetector
 
 
 def main(argv):
