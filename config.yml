@@ -8,6 +8,6 @@ edge:
   bin_path:
 crawler:
   thread_min: 100
-  thread_max: 1000
+  thread_max: 500
   comment_sleep: 11
   comment_message: 66666666666666666

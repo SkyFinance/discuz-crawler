@@ -29,6 +29,12 @@ class CommentPublisher:
     def IsSuccess(self,html:str) -> bool:
         return html.find("回复发布成功") != -1
 
+    def FailedReason(self,html:str) -> str:
+        if(html.find("抱歉，您所在的用户组每小时限制发回帖")!= -1):
+            return "每小时限制发回帖限制"
+        else:
+            return "发帖间隔10s限制"
+
     def CommentPost(self,post):
         tid = post["tid"]
         fid = post ["fid"]
@@ -40,32 +46,46 @@ class CommentPublisher:
             "subject":""
         }
         url = f"https://live.acgyouxi.xyz/forum.php?mod=post&action=reply&tid={tid}&fid={fid}&extra=page%3D1&replysubmit=yes&infloat=yes&handlekey=fastpost&inajax=1"
-        response = requests.post(cookies=self.cookie,url=url,data=postData)
-        self.current += 1
-        if(self.IsSuccess(response.text)):
-            logger.info(f"fid={fid},tid={tid},result:Success ({self.current}/({self.allPosts}))")
-            if(post in self.commentFaildPosts):
-                self.commentFaildPosts.remove(post)
-        else:
-            logger.error(f"fid={fid},tid={tid},result:Failed ({self.current}/({self.allPosts}))")
+        try:
+            response = requests.post(cookies=self.cookie,url=url,data=postData)
+        except requests.exceptions.ConnectionError:
+            logger.error(f"fid={fid},tid={tid},ConnectionError ({self.current}/{self.allPosts})")
             self.commentFaildPosts.append(post)
+        except requests.exceptions.ChunkedEncodingError:
+            logger.error(f"fid={fid},tid={tid},ChunkedEncodingError ({self.current}/{self.allPosts})")
+            self.commentFaildPosts.append(post)
+        except:
+            logger.error(f"fid={fid},tid={tid},UnknownError ({self.current}/{self.allPosts})")
+            self.commentFaildPosts.append(post)
+        finally:
+            self.current += 1
+            if(response.status_code==200):
+                if(self.IsSuccess(response.text)):
+                    logger.info(f"fid={fid},tid={tid},result:Success ({self.current}/{self.allPosts})")
+                    if(post in self.commentFaildPosts):
+                        self.commentFaildPosts.remove(post)
+                else:
+                    logger.error(f"fid={fid},tid={tid},result:Failed,{self.FailedReason(response.text)} ({self.current}/{self.allPosts})")
+                    self.commentFaildPosts.append(post)
 
     def GetTaskPosts(self):
-        if(len(self.commentFaildPosts)==0):
-            posts = self.SearchPostsNeededToComment(self.GetPosts())
+        if(self.commentFaildPosts):
+            return self.commentFaildPosts
         else:
-            posts = self.commentFaildPosts
-        return posts
+            return self.SearchPostsNeededToComment(self.GetPosts())
 
     def StartComment(self):
         sleepTime = ConfigLoader().GetCommentSleep()
         posts = self.GetTaskPosts()
         self.allPosts = len(posts)
         logger.info(f"a new task created,goal:{self.allPosts}")
+        self.current = 0
+        self.commentFaildPosts = []
         for post in posts:
             self.CommentPost(post)
             sleep(sleepTime)
-        if(len(self.commentFaildPosts)>0):
+        logger.info(f"a task finished.")
+        if(self.commentFaildPosts):
             self.StartComment()
         
         
