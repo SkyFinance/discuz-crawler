@@ -1,4 +1,3 @@
-from unittest import result
 import aiohttp
 import asyncio
 from aiohttp import client_exceptions

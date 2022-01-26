@@ -4,7 +4,7 @@ from Browser.Browser import Browser
 from ConfigLoader import ConfigLoader
 
 
-class Crawler:
+class FeiMaoDiskTrans:
     def __init__(self) -> None:
         self.browser = Browser()
         self.config = ConfigLoader()
@@ -15,31 +15,8 @@ class Crawler:
         self.browser.AddCookies(
             self.config.GetFeiMaoCookie(), "www.feimaoyun.com")
 
-    def LoginSite(self):
-        self.browser.Get("https://live.acgyouxi.xyz")
-        self.browser.DeleteAllCookies()
-        self.browser.AddCookies(
-            self.config.GetSiteCookie(), 'live.acgyouxi.xyz')
-
     def Transaction(self, post):
-        self.ViewPost(post)
-        self.CommentPost()
-        self.ClickPanUrl()
         self.TransforPan()
-
-    def ViewPost(self, post):
-        self.browser.Get('https://live.acgyouxi.xyz/thread-' +
-                         str(post)+'-1-1.html')
-
-    def CommentPost(self):
-        self.browser.ScrollToBottom()
-        self.browser.FindElementByName(
-            "message").send_keys("66666666666666666")
-        self.browser.FindElementByName('replysubmit').click()
-
-    def ClickPanUrl(self):
-        self.browser.WaitUtilToClickByXpath(
-            "/html/body/div[10]/div/div[4]/div[2]/div[1]/table/tbody/tr[1]/td[2]/div[2]/div/div[1]/table/tbody/tr/td/div/font/strong/a[1]")
 
     def TransforPan(self):
         self.browser.WaitUtilToClickByXpath(
@@ -78,7 +55,7 @@ class Crawler:
 
 
 def main():
-    crawler = Crawler()
+    crawler = FeiMaoDiskTrans()
 
 
 if __name__ == "__main__":

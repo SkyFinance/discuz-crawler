@@ -22,13 +22,22 @@ Gitee: https://gitee.com/xsdwptg/discuz-crawler
 
 ps:飞猫云需要开通VIP
 
-### 软件架构
+### 模块介绍
+|名称|描述|参数|
+|---|---|---|
+|PostStatusDetector|查看帖子状态，收集信息|-d|
+|CommentPublisher|回复隐藏资源的帖子|-c|
+|FeiMaoDiskTrans|转存所有飞猫云资源|-p|
+
+### 技术选型
 | 名称 | 描述 |
 | --- | --- |
 | Selenium | 模拟操作浏览器 |
 | Pyyaml | 读取yaml格式配置文件 |
 | Pillow | 图像处理标准库 |
 | Aiohttp | 异步网络请求库 |
+| Requests | 同步网络请求库 |
+| Loguru| 日志框架 |
 
 ### 使用教程
 1. 安装依赖
@@ -57,7 +66,14 @@ pip -r requirements.txt
    edge:
       bin_path: C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
    ``` 
-4. 配置Cookie
+4. 配置爬虫
+   ```
+   thread_min: 100 # 帖子ID最小值
+   thread_max: 500 # 帖子ID最大值
+   comment_sleep: 11 # 评论间隔时间
+   comment_message: 66666666666666666 #评论内容(暂不支持中文)
+   ```
+5. 配置Cookie
    
    在cookies配置项中分别写入目标论坛和飞猫云的Cookie
     _____
@@ -74,8 +90,9 @@ pip -r requirements.txt
     1. 刷新当前页面，选中开发者工具中出现的项，在请求头部分中找到cookie项，复制"cookie: "之后的值
    ![](./Image/readme_05.png)
     1. 飞猫云cookie获取同理
-5. 运行程序
+6. 运行程序
    ```
-   python Crawler.py
+   python main.py -d # 运行PostStatusDetector模块
+   python main.py -c # 运行CommentPublisher模块
    ```
 
