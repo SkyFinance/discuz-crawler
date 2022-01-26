@@ -6,3 +6,8 @@ cookies:
   feimao: PHPSESSID=f6uve18h6es902m2efouv2qh61; view_stat=1; feemootoken=MDAwMDAwMDAwMJbfe2eakXHNtMuAro-Xs8-DdX3JmKqZnYPOq4eEqXatf7qKoJuKbaE.MDAwMDAwMDAwMJbfe6eYbH3NtMuAlp2ZxduRn4nNmLpvqoDSr6mTt3qnetOdn5l8eZqyto-ThtDN4IZ2ltuD3K2djr3JqnrOoKx_0IJog41927Pcg92FqayXmImEyoXMf2eCqcxmgLh2rnrUYXQ.44f3614a3d3ccedaaf9d3e424c7a516d359a7b8535838e5ff60641dca3629289; tcode=9DD953526EC01312-3B756381A55F8874
 edge:
   bin_path:
+crawler:
+  thread_min: 100
+  thread_max: 1000
+  comment_sleep: 11
+  comment_message: 66666666666666666
