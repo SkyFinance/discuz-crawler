@@ -33,6 +33,9 @@ class Logging:
  
     def Error(self, msg, *args, **kwargs):
         return logger.error(msg, *args, **kwargs)
+
+    def Success(self, msg, *args, **kwargs):
+        return logger.success(msg, *args, **kwargs)
  
     def Exception(self, msg, *args, excInfo=True, **kwargs):
         return logger.exception(msg, *args, exc_info=excInfo, **kwargs)

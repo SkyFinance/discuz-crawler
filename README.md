@@ -38,18 +38,25 @@ ps:飞猫云需要开通VIP
 | Aiohttp | 异步网络请求库 |
 | Requests | 同步网络请求库 |
 | Loguru| 日志框架 |
+| Merry | 异常处理库 |
+| tenacity | 快速重试库 |
 
 ### 使用教程
-1. 安装依赖
+1. 克隆仓库
+```
+git clone https://gitee.com/xsdwptg/discuz-crawler.git # Gitee仓库
+git clone https://github.com/Nancycycycy/discuz-crawler.git # 或Github仓库
+```
+2. 安装依赖
 ```
 pip install -r requirements.txt
 ```
-2. 下载驱动
+3. 下载驱动
    
    根据自己的浏览器版本下载对应驱动
 - Edge驱动: https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/
 - Chrome驱动: https://npm.taobao.org/mirrors/chromedriver
-3. 配置驱动
+4. 配置驱动
    
    - 打开config.yml，在driver的path项中输入驱动路径
    ```
@@ -66,14 +73,14 @@ pip install -r requirements.txt
    edge:
       bin_path: C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
    ``` 
-4. 配置爬虫
+5. 配置爬虫
    ```
    thread_min: 100 # 帖子ID最小值
    thread_max: 500 # 帖子ID最大值
    comment_sleep: 11 # 评论间隔时间
    comment_message: 66666666666666666 #评论内容(暂不支持中文)
    ```
-5. 配置Cookie
+6. 配置Cookie
    
    在cookies配置项中分别写入目标论坛和飞猫云的Cookie
     _____
@@ -90,9 +97,10 @@ pip install -r requirements.txt
     1. 刷新当前页面，选中开发者工具中出现的项，在请求头部分中找到cookie项，复制"cookie: "之后的值
    ![](./image/readme_05.png)
     1. 飞猫云cookie获取同理
-6. 运行程序
+7. 运行程序
    ```
    python main.py -d # 运行PostStatusDetector模块
    python main.py -c # 运行CommentPublisher模块
+   python main.py -p # 运行FeiMaoDiskTrans模块
    ```
 

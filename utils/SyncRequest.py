@@ -26,13 +26,22 @@ class SyncRequest(object):
     @merry._except(requests.exceptions.ConnectTimeout)
     def CatchConnectTimeoutError(e):
         Logging().Error('ConnectTimeoutError: ' + str(e))
+        raise e
 
     @staticmethod
     @merry._except(requests.exceptions.ConnectionError)
     def CatchConnectionErrorError(e):
-        Logging().Error('ConnectionErrorError: ' + str(e))
+        Logging().Error('ConnectionError: ' + str(e))
+        raise e
+
+    @staticmethod
+    @merry._except(requests.exceptions.ChunkedEncodingError)
+    def CatchConnectionErrorError(e):
+        Logging().Error('ChunkedEncodingError: ' + str(e))
+        raise e
 
     @staticmethod
     @merry._except(Exception)
     def CatchAll(e):
         Logging().Error('UnknownError: ' + str(e))
+        raise e

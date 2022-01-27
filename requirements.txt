@@ -1,7 +1,9 @@
 aiohttp==3.7.4.post0
 loguru==0.5.3
+merry==0.3.0
 msedge_selenium_tools==3.141.3
 Pillow==9.0.0
 PyYAML==6.0
 requests==2.25.1
 selenium==3.141.0
+tenacity==8.0.1

@@ -30,7 +30,7 @@ def main(argv):
         elif(opt == "-c"):
             logger.info("Start comment threads.")
             commentPublisher = CommentPublisher()
-            commentPublisher.StartComment()
+            commentPublisher.StartTasks()
             
 
 if(__name__ == "__main__"):
