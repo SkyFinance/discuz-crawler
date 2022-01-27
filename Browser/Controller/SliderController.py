@@ -1,6 +1,6 @@
 
 from PIL import Image
-from Utils.SliderUtil import SliderUtil
+from utils.SliderUtil import SliderUtil
 
 
 class SliderController:
@@ -13,8 +13,8 @@ class SliderController:
         Returns:
             list: 包含移动轨迹的列表，单位为像素
         """
-        bgImage = Image.open('./Captcha/bg.png')
-        fullbgImage = Image.open('./Captcha/fullbg.png')
+        bgImage = Image.open('./captcha/bg.png')
+        fullbgImage = Image.open('./captcha/fullbg.png')
         distance = SliderUtil.GetDistance(bgImage, fullbgImage)
         track = SliderUtil.GenerateTracks(distance)
         return track

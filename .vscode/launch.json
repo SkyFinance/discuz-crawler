@@ -8,7 +8,7 @@
             "name": "Python: 运行",
             "type": "python",
             "request": "launch",
-            "program": "./Crawler.py",
+            "program": "./main.py",
             "console": "integratedTerminal"
         }
     ]

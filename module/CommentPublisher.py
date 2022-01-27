@@ -1,10 +1,8 @@
 from time import sleep
-
 import requests
 from loguru import logger
-
-from ConfigLoader import ConfigLoader
-from DataStore.DataStore import DataStore
+from utils.ConfigLoader import ConfigLoader
+from data_store.DataStore import DataStore
 
 
 class CommentPublisher:
@@ -28,15 +26,6 @@ class CommentPublisher:
                 postObject = {"postId":int(post["post"]),"tid":int(post["tid"]),"fid":int(post["fid"]),"formhash":post["formhash"]}
                 commentPosts.append(postObject)
         return commentPosts
-
-    def IsSuccess(self,html:str) -> bool:
-        return html.find("回复发布成功") != -1
-
-    def FailedReason(self,html:str) -> str:
-        if(html.find("抱歉，您所在的用户组每小时限制发回帖")!= -1):
-            return "每小时限制发回帖限制"
-        else:
-            return "发帖间隔10s限制"
 
     def CommentPost(self,post):
         tid = post["tid"]

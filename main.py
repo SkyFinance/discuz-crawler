@@ -3,9 +3,9 @@ import sys
 
 from loguru import logger
 
-from Banner import Banner
-from CommentPublisher import CommentPublisher
-from PostStatusDetector import PostStatusDetector
+from utils.Banner import Banner
+from module.CommentPublisher import CommentPublisher
+from module.PostStatusDetector import PostStatusDetector
 
 
 def main(argv):

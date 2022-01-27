@@ -1,11 +1,10 @@
 from yaml import load, FullLoader
-
-from Utils.CookieUtil import CookieUtil
+from utils.CookieUtil import CookieUtil
 
 
 class ConfigLoader:
     def __init__(self) -> None:
-        with open('config.yml') as f:
+        with open('./resource/config.yml') as f:
             self.data = load(f, Loader=FullLoader )
 
     def GetSiteCookie(self) -> str:

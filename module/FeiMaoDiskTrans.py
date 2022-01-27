@@ -1,7 +1,7 @@
 from time import sleep
-from Browser.Browser import Browser
-from ConfigLoader import ConfigLoader
-from DataStore.DataStore import DataStore
+from browser.Browser import Browser
+from utils.ConfigLoader import ConfigLoader
+from data_store.DataStore import DataStore
 
 class FeiMaoDiskTrans:
     def __init__(self) -> None:
@@ -11,7 +11,7 @@ class FeiMaoDiskTrans:
 
     def GetDiskUrls():
         dataStore = DataStore()
-        lines=dataStore.ReadLines("./Data/Status.csv")
+        lines=dataStore.ReadLines("./data/status.csv")
         posts = []
         for line in lines:
             if(line["feiMao"]):

@@ -80,15 +80,15 @@ pip install -r requirements.txt
     如何获取Cookie?
     _____
     1. 登录目标网站
-   ![](./Image/readme_01.png)
+   ![](./image/readme_01.png)
     1. 按F12打开开发者工具
-   ![](./Image/readme_02.png)
+   ![](./image/readme_02.png)
     1. 切换到"网络"选项卡
-   ![](./Image/readme_03.png)
+   ![](./image/readme_03.png)
     1. 点击"文档"按钮
-   ![](./Image/readme_04.png)
+   ![](./image/readme_04.png)
     1. 刷新当前页面，选中开发者工具中出现的项，在请求头部分中找到cookie项，复制"cookie: "之后的值
-   ![](./Image/readme_05.png)
+   ![](./image/readme_05.png)
     1. 飞猫云cookie获取同理
 6. 运行程序
    ```
