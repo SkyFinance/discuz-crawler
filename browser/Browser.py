@@ -1,10 +1,10 @@
 import selenium.webdriver.support.expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
-from Browser.WebDriverInitializer.Impl.ChromeWebDriverInitializer import ChromeWebDriverInitializer
-from Browser.WebDriverInitializer.Impl.EdgeWebDriverInitializer import EdgeWebDriverInitializer
+from browser.web_driver_initializer.impl.ChromeWebDriverInitializer import ChromeWebDriverInitializer
+from browser.web_driver_initializer.impl.EdgeWebDriverInitializer import EdgeWebDriverInitializer
 from selenium.webdriver.common.action_chains import ActionChains
-from ConfigLoader import ConfigLoader
+from utils.ConfigLoader import ConfigLoader
 
 
 class Browser:

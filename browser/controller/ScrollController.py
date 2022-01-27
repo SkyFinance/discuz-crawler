@@ -1,4 +1,4 @@
-from Browser.Browser import Browser
+from browser.Browser import Browser
 class ScrollControllerController:
     """浏览器滚动控制器
     """
