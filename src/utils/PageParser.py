@@ -15,7 +15,8 @@ class PageParser:
             feiMao=PageParser.GetFeiMaoPan(html),
             unZip=PageParser.GetUnZip(html),
             tid=PageParser.GetTid(html),
-            fid=PageParser.GetFormHash(html)
+            fid=PageParser.GetFid(html),
+            formhash=PageParser.GetFormHash(html)
         )
 
     @staticmethod
@@ -28,7 +29,7 @@ class PageParser:
 
     @staticmethod
     def IsAvailable(html: str) -> bool:
-        return html.find("抱歉，指定的主题不存在或已被删除或正在被审核") == -1 or html.find("抱歉，您没有权限访问该版块")
+        return html.find("抱歉，指定的主题不存在或已被删除或正在被审核") == -1 and html.find("抱歉，您没有权限访问该版块") == -1
 
     @staticmethod
     def IsLocked(html: str) -> bool:
@@ -59,11 +60,13 @@ class PageParser:
         return PageParser.ReSearchFromHtml(r'(?<=;formhash=).*?(?=")', html)
 
     @staticmethod
-    def ParseCommentResponse(self,html:str) -> bool:
+    def ParseCommentResponse(html:str) -> bool:
         if(html.find("回复发布成功") != -1):
             return CommentResponse.success
-        elif(html.find("抱歉，您所在的用户组每小时限制发回帖")!= -1):
+        elif(html.find("您所在的用户组每小时限制发回帖")!= -1):
             return CommentResponse.perHourLimit
         elif(html.find("抱歉，您两次发表间隔少于") != -1):
             return CommentResponse.intervalLimit
+        elif(html.find("您当前的访问请求当中含有非法字符，已经被系统拒绝")):
+            return CommentResponse.illegalRequest
         

@@ -1,35 +1,24 @@
+from distutils.command.config import config
 from yaml import load, FullLoader
-from utils.CookieUtil import CookieUtil
 
 
 class ConfigLoader:
+    @staticmethod
+    def Get() -> None:
+        return Config().ReadData()
+            
+def singleton(cls, *args, **kw):
+    instances = {}
+    def getinstance():
+        if cls not in instances:
+            instances[cls] = cls(*args, **kw)
+        return instances[cls]
+    return getinstance
+ 
+@singleton
+class Config:
     def __init__(self) -> None:
-        with open('./resource/config.yml') as f:
+        with open('./resource/config.yml',encoding="utf-8") as f:
             self.data = load(f, Loader=FullLoader )
-
-    def GetSiteCookie(self) -> str:
-        return CookieUtil.CookiesToDict(self.data['cookies']['site'])
-
-    def GetFeiMaoCookie(self) -> str:
-        return CookieUtil.CookiesToDict(self.data['cookies']['feimao'])
-
-    def GetDriverType(self):
-        return self.data['driver']['type']
-
-    def GetDriverPath(self) -> str:
-        return self.data['driver']['path']
-
-    def GetEdgePath(self) -> str:
-        return self.data['edge']['bin_path']
-
-    def GetCommentSleep(self) ->str:
-        return self.data['crawler']['comment_sleep']
-
-    def GetCommentMessage(self) ->str:
-        return self.data['crawler']['comment_message']
-
-    def GetThreadMin(self) -> str:
-        return self.data['crawler']['thread_min']
-
-    def GetThreadMax(self) -> str:
-        return self.data['crawler']['thread_max']
+    def ReadData(self):
+        return self.data

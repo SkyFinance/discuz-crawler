@@ -5,31 +5,31 @@ from data_store.DataStore import DataStore
 from utils.PageParser import PageParser
 from utils.SyncRequest import SyncRequest
 from utils.Logging import Logging
+from utils.CookieUtil import CookieUtil
 from enums.CommentResponse import CommentResponse
 from exceptions.CommentIntervalLimitError import CommentIntervalLimitError
 from exceptions.CommentPerHourLimitError import CommentPerHourLimitError
 from exceptions.CommentPublishError import CommentPublishError
+from exceptions.CommentIllegalRequestError import CommentIllegalRequestError
 from merry import Merry
 
 merry = Merry()
+merry.logger.disabled = True
 logger = Logging()
 
 class CommentPublisher:
     def __init__(self) -> None:
-        config = ConfigLoader()
-        self.cookie = config.GetSiteCookie()
-        self.message = config.GetCommentMessage()
-        self.sleepTime = config.GetCommentSleep()
         self.taskPosts = self.NeededToComment()
-
+        merry.g.publisher = self
     def ReadPosts(self):
-        return DataStore().ReadLines("./data/Status.csv")
+        return DataStore().ReadVOs("./data/Status.csv")
         
     def NeededToComment(self) -> queue.Queue:
-        postList = list(filter(lambda post:post.isAvailable == True and post.isLocked == True,self.ReadPosts()))
+        postList = list(filter(lambda post:post.isAvailable == "True" and post.isLocked == "True",self.ReadPosts()))
         postQueue = queue.Queue()
         for post in postList:
             postQueue.put(post)
+        return postQueue
 
     def BuildCommentUrl(self,post):
         tid = post.tid
@@ -38,8 +38,8 @@ class CommentPublisher:
     
     def BuildCommentPostData(self,post):
         return {
-            "message":self.message,
-            "formhash":post["formhash"],
+            "message":ConfigLoader.Get()["crawler"]["comment_message"],
+            "formhash":post.formhash,
             "usesig":"",
             "subject":""
         }
@@ -49,50 +49,48 @@ class CommentPublisher:
         merry.g.post = post
         postData = self.BuildCommentPostData(post)
         url = self.BuildCommentUrl(post)
-        response = SyncRequest.Post(cookies= self.cookie,url = url ,data=postData) 
+        cookies = CookieUtil.CookiesToDict(ConfigLoader.Get()["cookies"]["site"])
+        response = SyncRequest.Post(cookies= cookies,url = url ,data=postData) 
         commentResult = PageParser.ParseCommentResponse(response)
         self.HandleCommentResult(commentResult,post)
-        sleep(self.sleepTime)
+        sleep(ConfigLoader.Get()["crawler"]["comment_sleep"])
 
     @merry._try
     def HandleCommentResult(self,commentResult,post):
         merry.g.post = post
         if(commentResult == CommentResponse.success):
-            logger.Success(f"thread={post.tid} Comment Success")
-        elif(commentResult == CommentPerHourLimitError):
+            logger.Success(f"thread={post.tid} Comment Success (remains {self.taskPosts.qsize()})")
+        elif(commentResult == CommentResponse.perHourLimit):
             logger.Error(f"thread={post.tid} 每小时评论数量限制")
-            raise CommentPerHourLimitError
+            raise CommentPerHourLimitError(post)
         elif(commentResult == CommentResponse.intervalLimit):
             logger.Error(f"thread={post.tid} 两次评论时间间隔限制")
-            raise CommentIntervalLimitError
+            raise CommentIntervalLimitError(post)
+        elif(commentResult == CommentResponse.illegalRequest):
+            logger.Error(f"thread={post.tid} 评论含有非法字符，请检查post数据是否正常")
+            raise CommentIllegalRequestError(post)
         else:
             logger.Error(f"thread={post.tid} 评论出现未知错误")
-            raise CommentPublishError
+            raise CommentPublishError(post)
 
     @merry._except(CommentPerHourLimitError)
     def WaitForAnHour(self):
-        self.AddPostToTask()
-        logger.Info("触发每小时发帖限制，自动等待一小时")
-        sleep(60*60)
+        post = getattr(merry.g, 'post', None)
+        publisher = getattr(merry.g,'publisher',None)
+        if(publisher is not None and post is not None):
+            publisher.taskPosts.put(post)
+            logger.Info(f"触发每小时发帖限制，自动等待一小时(remains {self.taskPosts.qsize()})")
+            """ sleep(60*60) """
 
     @merry._except(Exception)
     def HandleFailedComment(self):
-        self.AddPostToTask()
-    
-    def AddPostToTask(self):
         post = getattr(merry.g, 'post', None)
-        if(post is not None):
-            self.taskPosts.put(post)
+        publisher = getattr(merry.g,'publisher',None)
+        if(publisher is not None and post is not None):
+            publisher.taskPosts.put(post)
 
     def StartTasks(self):
-        while self.taskPosts:
+        while self.taskPosts.qsize():
             post = self.taskPosts.get()
             self.CommentPost(post)
         
-def main():
-    commentPublisher = CommentPublisher()
-    commentPublisher.StartTasks()
-    logger.Info(f"全部评论执行完毕")
-
-if(__name__ == "__main__"):
-    main()

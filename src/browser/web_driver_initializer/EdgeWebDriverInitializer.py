@@ -1,10 +1,9 @@
 from msedge.selenium_tools import Edge, EdgeOptions
 
-from ConfigLoader import ConfigLoader
-from ..WebDriverInitializer import WebDriverInitializer
+from utils.ConfigLoader import ConfigLoader
 
 
-class EdgeWebDriverInitializer(WebDriverInitializer):
+class EdgeWebDriverInitializer():
 
     def GetWebDriver(self) -> Edge:
         """返回Edge浏览器对象
@@ -15,6 +14,6 @@ class EdgeWebDriverInitializer(WebDriverInitializer):
         config = ConfigLoader()
         options = EdgeOptions()
         options.use_chromium = True
-        options.binary_location = config.GetEdgePath()
-        driver = Edge(options=options, executable_path=config.GetDriverPath())
+        options.binary_location = ConfigLoader.Get()["edge"]["bin_path"]
+        driver = Edge(options=options, executable_path=ConfigLoader.Get()["driver"]["path"])
         return driver

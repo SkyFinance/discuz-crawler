@@ -26,11 +26,8 @@ class DataStore:
     def SaveVOs(self, path, voList: list):
         if(not voList):
             raise DataIsEmptyError()
-        vo = voList[0]
-        headers = [field.name for field in fields(vo)]
-        rows = []
-        rows.append(dict((field.name, getattr(vo, field.name))
-                    for field in fields(vo)))
+        headers = [field.name for field in fields(voList[0])]
+        rows = [dict((field.name, getattr(vo, field.name)) for field in fields(vo)) for vo in voList]
         self.SaveLines(path, headers, rows)
 
     def ReadVOs(self, path) -> list:

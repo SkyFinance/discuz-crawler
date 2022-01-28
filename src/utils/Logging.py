@@ -14,7 +14,6 @@ class Logging:
                backtrace=True,
                diagnose=True,
                enqueue=True,
-               rotation="5kb"
               ) 
 
     def __new__(cls, *args, **kwargs):

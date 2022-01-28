@@ -1,16 +1,16 @@
 import selenium.webdriver.support.expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
-from browser.web_driver_initializer.impl.ChromeWebDriverInitializer import ChromeWebDriverInitializer
-from browser.web_driver_initializer.impl.EdgeWebDriverInitializer import EdgeWebDriverInitializer
+from browser.web_driver_initializer.ChromeWebDriverInitializer import ChromeWebDriverInitializer
+from browser.web_driver_initializer.EdgeWebDriverInitializer import EdgeWebDriverInitializer
 from selenium.webdriver.common.action_chains import ActionChains
 from utils.ConfigLoader import ConfigLoader
 
 
 class Browser:
     def __init__(self) -> None:
-        config = ConfigLoader()
-        driverType = config.GetDriverType()
+        config = ConfigLoader.Get()
+        driverType = config["driver"]["type"]
         if(driverType == "Edge"):
             self.driver = EdgeWebDriverInitializer().GetWebDriver()
         elif(driverType == "Chrome"):

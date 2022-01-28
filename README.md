@@ -27,7 +27,7 @@ ps:飞猫云需要开通VIP
 |---|---|---|
 |PostStatusDetector|查看帖子状态，收集信息|-d|
 |CommentPublisher|回复隐藏资源的帖子|-c|
-|FeiMaoDiskTrans|转存所有飞猫云资源|-p|
+|FeiMaoDiskTransferor|转存所有飞猫云资源|-p|
 
 ### 技术选型
 | 名称 | 描述 |
@@ -78,7 +78,7 @@ pip install -r requirements.txt
    thread_min: 100 # 帖子ID最小值
    thread_max: 500 # 帖子ID最大值
    comment_sleep: 11 # 评论间隔时间
-   comment_message: 66666666666666666 #评论内容(暂不支持中文)
+   comment_message: 66666666666666666 #评论内容
    ```
 6. 配置Cookie
    
@@ -101,6 +101,6 @@ pip install -r requirements.txt
    ```
    python main.py -d # 运行PostStatusDetector模块
    python main.py -c # 运行CommentPublisher模块
-   python main.py -p # 运行FeiMaoDiskTrans模块
+   python main.py -p # 运行FeiMaoDiskTransferor模块
    ```
 
