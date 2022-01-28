@@ -1,12 +1,11 @@
 import getopt
 import sys
-
-from loguru import logger
-
 from utils.Banner import Banner
 from module.CommentPublisher import CommentPublisher
 from module.PostStatusDetector import PostStatusDetector
+from utils.Logging import Logging
 
+logger = Logging()
 
 def main(argv):
     print(Banner().GetContent())
@@ -24,11 +23,11 @@ def main(argv):
             print('"python main.py -c" comment all available posts in /Data/Status.csv')
             sys.exit()
         elif(opt == "-d"):
-            logger.info("Start detect threads.")
+            logger.Info("Start to detect threads.")
             detector = PostStatusDetector()
             detector.StartCorotinue()
         elif(opt == "-c"):
-            logger.info("Start comment threads.")
+            logger.Info("Start to comment threads.")
             commentPublisher = CommentPublisher()
             commentPublisher.StartTasks()
             

@@ -1,23 +1,22 @@
 import re
 
 from enums.CommentResponse import CommentResponse
-
+from vo.PostStatus import PostStatus
 class PageParser:
 
     @staticmethod
-    def AnalyzePage(html, url, post):
-        result = {}
-        result["url"] = url
-        result["post"] = post
-        result["title"] = PageParser.GetTitle(html)
-        result["isAvailable"] = PageParser.IsAvailable(html)
-        result["isLocked"] = PageParser.IsLocked(html)
-        result["feiMao"] = PageParser.GetFeiMaoPan(html)
-        result["unZip"] = PageParser.GetUnZip(html)
-        result["tid"] = PageParser.GetTid(html)
-        result["fid"] = PageParser.GetFid(html)
-        result["formhash"] = PageParser.GetFormHash(html)
-        return result
+    def AnalyzePage(html, url, post) -> PostStatus:
+        return PostStatus(
+            url=url,
+            post=post,
+            title=PageParser.GetTitle(html),
+            isAvailable=PageParser.IsAvailable(html),
+            isLocked=PageParser.IsLocked(html),
+            feiMao=PageParser.GetFeiMaoPan(html),
+            unZip=PageParser.GetUnZip(html),
+            tid=PageParser.GetTid(html),
+            fid=PageParser.GetFormHash(html)
+        )
 
     @staticmethod
     def ReSearchFromHtml(pattern, html):

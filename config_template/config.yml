@@ -1,0 +1,13 @@
+driver: 
+  type: Chrome
+  path: ./resource/chromedriver.exe
+cookies:
+  site: 你的Cookies 
+  feimao: 你的Cookies
+edge:
+  bin_path:
+crawler:
+  thread_min: 100
+  thread_max: 500
+  comment_sleep: 11
+  comment_message: 66666666666666666

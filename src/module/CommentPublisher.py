@@ -1,3 +1,4 @@
+import queue
 from time import sleep
 from utils.ConfigLoader import ConfigLoader
 from data_store.DataStore import DataStore
@@ -24,8 +25,11 @@ class CommentPublisher:
     def ReadPosts(self):
         return DataStore().ReadLines("./data/Status.csv")
         
-    def NeededToComment(self):
-        return list(filter(lambda post:post.isAvailable == True and post.isLocked == True,self.ReadPosts()))
+    def NeededToComment(self) -> queue.Queue:
+        postList = list(filter(lambda post:post.isAvailable == True and post.isLocked == True,self.ReadPosts()))
+        postQueue = queue.Queue()
+        for post in postList:
+            postQueue.put(post)
 
     def BuildCommentUrl(self,post):
         tid = post.tid
@@ -54,9 +58,7 @@ class CommentPublisher:
     def HandleCommentResult(self,commentResult,post):
         merry.g.post = post
         if(commentResult == CommentResponse.success):
-            if(post in self.taskPosts):
-                logger.Success(f"thread={post.tid} Comment Success")
-                self.taskPosts.remove(post)
+            logger.Success(f"thread={post.tid} Comment Success")
         elif(commentResult == CommentPerHourLimitError):
             logger.Error(f"thread={post.tid} 每小时评论数量限制")
             raise CommentPerHourLimitError
@@ -80,21 +82,17 @@ class CommentPublisher:
     def AddPostToTask(self):
         post = getattr(merry.g, 'post', None)
         if(post is not None):
-            logger.Info(f"thread={post.tid} 帖子评论失败，加入下一次评论队列")
-            self.taskPosts.append(post)
+            self.taskPosts.put(post)
 
     def StartTasks(self):
-        for post in self.taskPosts:
+        while self.taskPosts:
+            post = self.taskPosts.get()
             self.CommentPost(post)
         
 def main():
     commentPublisher = CommentPublisher()
-    while True:
-        commentPublisher.StartTasks()
-        if(not commentPublisher.taskPosts):
-            logger.Info(f"全部评论执行完毕")
-            break
-
+    commentPublisher.StartTasks()
+    logger.Info(f"全部评论执行完毕")
 
 if(__name__ == "__main__"):
     main()

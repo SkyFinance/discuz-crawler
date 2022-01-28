@@ -1,7 +1,7 @@
 class Banner:
     content = ""
     def __init__(self) -> None:
-        with open ('banner.txt',"r",encoding="utf-8") as f:
+        with open ('./resource/banner.txt',"r",encoding="utf-8") as f:
             rows = f.readlines()
             self.content = self.CombineRows(rows)
     

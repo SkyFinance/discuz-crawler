@@ -1,6 +1,6 @@
 from merry import Merry
 from aiohttp import client_exceptions
-from Logging import Logging
+from utils.Logging import Logging
 import asyncio
 import aiohttp
 
