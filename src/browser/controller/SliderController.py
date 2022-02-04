@@ -1,9 +1,18 @@
+'''
+Author: Nancycycycy
+Date: 2022-01-27 18:26:33
+LastEditors: Nancycycycy
+LastEditTime: 2022-02-04 13:16:52
+Description: 
 
+Copyright (c) 2022 by Nancycycycy, All Rights Reserved.
+'''
 from PIL import Image
 from utils.SliderUtil import SliderUtil
 
 
 class SliderController:
+
     def __init__(self, browser) -> None:
         self.browser = browser
 
@@ -19,7 +28,7 @@ class SliderController:
         track = SliderUtil.GenerateTracks(distance)
         return track
 
-    def Slide(self, sliderButtonClassName:str) -> None:
+    def Slide(self, sliderButtonClassName: str) -> None:
         """执行滑动动作
 
         Args:
@@ -30,11 +39,9 @@ class SliderController:
         slider = self.browser.FindElementByClassName(sliderButtonClassName)
         actionChains.click_and_hold(slider).perform()
         for tracks in track['forward_tracks']:
-            actionChains.move_by_offset(
-                xoffset=tracks, yoffset=0).perform()
+            actionChains.move_by_offset(xoffset=tracks, yoffset=0).perform()
         for tracks in track['back_tracks']:
-            actionChains.move_by_offset(
-                xoffset=tracks, yoffset=0).perform()
+            actionChains.move_by_offset(xoffset=tracks, yoffset=0).perform()
         actionChains.release().perform()
 
     pass

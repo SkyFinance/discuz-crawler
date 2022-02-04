@@ -1,14 +1,26 @@
-from merry import Merry
-from aiohttp import client_exceptions
-from utils.Logging import Logging
+'''
+Author: Nancycycycy
+Date: 2022-01-27 18:26:33
+LastEditors: Nancycycycy
+LastEditTime: 2022-02-04 13:02:57
+Description: 同步请求类
+
+Copyright (c) 2022 by Nancycycycy, All Rights Reserved.
+'''
+
 import requests
+from merry import Merry
+
+from utils.Logging import Logging
 
 merry = Merry()
+
+
 class SyncRequest(object):
 
     @staticmethod
     @merry._try
-    def Post(url:str,data:dict,cookies:dict) -> str:
+    def Post(url: str, data: dict, cookies: dict) -> str:
         """同步Post方法
 
         Args:
@@ -19,7 +31,7 @@ class SyncRequest(object):
         Returns:
             str: 解码后的html
         """
-        response = requests.post(url=url,data=data,cookies=cookies)
+        response = requests.post(url=url, data=data, cookies=cookies)
         return response.text
 
     @staticmethod
@@ -30,13 +42,13 @@ class SyncRequest(object):
 
     @staticmethod
     @merry._except(requests.exceptions.ConnectionError)
-    def CatchConnectionErrorError(e):
+    def CatchConnectionError(e):
         Logging().Error('ConnectionError: ' + str(e))
         raise e
 
     @staticmethod
     @merry._except(requests.exceptions.ChunkedEncodingError)
-    def CatchConnectionErrorError(e):
+    def CatchChunkedEncodingError(e):
         Logging().Error('ChunkedEncodingError: ' + str(e))
         raise e
 

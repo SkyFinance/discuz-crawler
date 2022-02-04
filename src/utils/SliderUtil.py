@@ -1,9 +1,21 @@
+'''
+Author: Nancycycycy
+Date: 2022-01-27 18:26:33
+LastEditors: Nancycycycy
+LastEditTime: 2022-02-04 13:02:44
+Description: 滑块计算工具类
+
+Copyright (c) 2022 by Nancycycycy, All Rights Reserved.
+'''
+
+
 from PIL.Image import Image
+
 
 class SliderUtil:
 
     @staticmethod
-    def GetDistance(bgImage:Image,fullbgImage:Image) -> int:
+    def GetDistance(bgImage: Image, fullbgImage: Image) -> int:
         """获取缺口与起点的距离
 
         Args:
@@ -14,15 +26,16 @@ class SliderUtil:
             int: 距离
         """
         distance = 60
-        for i in range(distance,fullbgImage.size[0]):
+        for i in range(distance, fullbgImage.size[0]):
             for j in range(fullbgImage.size[1]):
-                if (not SliderUtil.isPixelEqual(fullbgImage,bgImage,i,j)):
+                if (not SliderUtil.isPixelEqual(fullbgImage, bgImage, i, j)):
                     distance = i
-                    return distance-5
+                    return distance - 5
         return distance
-    
+
     @staticmethod
-    def isPixelEqual(bgImage:Image,fullbgImage:Image,x:int,y:int) -> bool:
+    def isPixelEqual(bgImage: Image, fullbgImage: Image, x: int,
+                     y: int) -> bool:
         """判断像素是否相等,有一定阈值
 
         Args:
@@ -34,16 +47,16 @@ class SliderUtil:
         Returns:
             bool: 是否相等
         """
-        bgPixel = bgImage.load()[x,y]
-        fullbgPixel = fullbgImage.load()[x,y]
+        bgPixel = bgImage.load()[x, y]
+        fullbgPixel = fullbgImage.load()[x, y]
         threshold = 60
-        for i in range(0,3):
-            if (abs(bgPixel[i] - fullbgPixel[i]<threshold)):
+        for i in range(0, 3):
+            if (abs(bgPixel[i] - fullbgPixel[i] < threshold)):
                 return True
         return False
 
     @staticmethod
-    def GenerateTracks(distance:int) -> dict:
+    def GenerateTracks(distance: int) -> dict:
         """生成轨迹列表
 
         Args:
@@ -60,10 +73,10 @@ class SliderUtil:
         mid = distance * 3 / 5
         while current < distance:
             if current < mid:
-                a = 2 
+                a = 2
             else:
-                a = -3 
-            s = v * t + 0.5 * a * (t ** 2)
+                a = -3
+            s = v * t + 0.5 * a * (t**2)
             v = v + a * t
             current += s
             forwardTracks.append(round(s))

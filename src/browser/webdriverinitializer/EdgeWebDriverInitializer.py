@@ -11,7 +11,6 @@ class EdgeWebDriverInitializer():
         Returns:
             Edge: Edge浏览器对象
         """
-        config = ConfigLoader()
         options = EdgeOptions()
         options.use_chromium = True
         options.binary_location = ConfigLoader.Get()["edge"]["bin_path"]

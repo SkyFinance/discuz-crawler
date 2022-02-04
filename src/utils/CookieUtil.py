@@ -1,6 +1,18 @@
+'''
+Author: Nancycycycy
+Date: 2022-01-27 18:26:33
+LastEditors: Nancycycycy
+LastEditTime: 2022-02-04 13:01:18
+Description: Cookie工具
+
+Copyright (c) 2022 by Nancycycycy, All Rights Reserved.
+'''
+
+
 class CookieUtil:
+
     @staticmethod
-    def CookiesToDict(cookiesString: str) ->dict:
+    def CookiesToDict(cookiesString: str) -> dict:
         """将从浏览器获得的字符串的Cookie整合为字典形式
 
         Args:

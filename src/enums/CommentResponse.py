@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class CommentResponse(Enum):
     success = 1,
     intervalLimit = 2,

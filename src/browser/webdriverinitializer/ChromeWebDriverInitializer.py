@@ -1,8 +1,6 @@
 from webbrowser import Chrome
-
 from selenium import webdriver
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-
 from utils.ConfigLoader import ConfigLoader
 
 
@@ -15,5 +13,7 @@ class ChromeWebDriverInitializer():
             Chrome: Chrome浏览器对象
         """
         desiredCapabilities = DesiredCapabilities.CHROME
-        driver = webdriver.Chrome(desired_capabilities=desiredCapabilities,executable_path=ConfigLoader.Get()["driver"]["path"])
+        driver = webdriver.Chrome(
+            desired_capabilities=desiredCapabilities,
+            executable_path=ConfigLoader.Get()["driver"]["path"])
         return driver

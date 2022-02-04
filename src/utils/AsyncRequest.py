@@ -1,15 +1,30 @@
-from merry import Merry
-from aiohttp import client_exceptions
-from utils.Logging import Logging
+'''
+Author: Nancycycycy
+Date: 2022-01-27 18:26:33
+LastEditors: Nancycycycy
+LastEditTime: 2022-02-04 13:03:14
+Description: 异步请求类
+
+Copyright (c) 2022 by Nancycycycy, All Rights Reserved.
+'''
+
 import asyncio
+
 import aiohttp
+from aiohttp import client_exceptions
+from merry import Merry
+
+from utils.Logging import Logging
 
 merry = Merry()
+
+
 class AsyncRequest(object):
 
     @staticmethod
     @merry._try
-    async def Get(url:str,semaphore:asyncio.Semaphore,cookies:dict) -> str:
+    async def Get(url: str, semaphore: asyncio.Semaphore,
+                  cookies: dict) -> str:
         """异步Get方法
 
         Args:
@@ -21,12 +36,12 @@ class AsyncRequest(object):
             str: 解码后的html
         """
         async with semaphore:
-                async with aiohttp.ClientSession(cookies=cookies) as session:
-                    async with session.request('GET', url) as response:
-                        html = await response.read()
-                        html = html.decode()
-                        return html
-        
+            async with aiohttp.ClientSession(cookies=cookies) as session:
+                async with session.request('GET', url) as response:
+                    html = await response.read()
+                    html = html.decode()
+                    return html
+
     @staticmethod
     @merry._except(client_exceptions.ClientConnectionError)
     def CatchClientConnectionError(e):

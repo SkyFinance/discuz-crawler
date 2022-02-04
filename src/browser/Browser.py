@@ -1,10 +1,22 @@
+'''
+Author: Nancycycycy
+Date: 2022-01-27 18:26:33
+LastEditors: Nancycycycy
+LastEditTime: 2022-02-04 13:11:13
+Description: 封装浏览器类
+
+Copyright (c) 2022 by Nancycycycy, All Rights Reserved.
+'''
 import selenium.webdriver.support.expected_conditions as EC
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
-from browser.web_driver_initializer.ChromeWebDriverInitializer import ChromeWebDriverInitializer
-from browser.web_driver_initializer.EdgeWebDriverInitializer import EdgeWebDriverInitializer
-from selenium.webdriver.common.action_chains import ActionChains
 from utils.ConfigLoader import ConfigLoader
+
+from browser.webdriverinitializer.ChromeWebDriverInitializer import \
+    ChromeWebDriverInitializer
+from browser.webdriverinitializer.EdgeWebDriverInitializer import \
+    EdgeWebDriverInitializer
 
 
 class Browser:

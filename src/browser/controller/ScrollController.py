@@ -1,9 +1,11 @@
 from browser.Browser import Browser
+
+
 class ScrollControllerController:
     """浏览器滚动控制器
     """
 
-    def __init__(self, browser:Browser) -> None:
+    def __init__(self, browser: Browser) -> None:
         self.browser = browser
 
     def ScrollToBottom(self) -> None:

@@ -2,7 +2,7 @@
 Author: Nancycycycy
 Date: 2022-01-24 21:05:54
 LastEditors: Nancycycycy
-LastEditTime: 2022-02-04 13:57:28
+LastEditTime: 2022-02-04 13:27:06
 Description: 帖子状态检测模块
 
 Copyright (c) 2022 by Nancycycycy, All Rights Reserved.
@@ -62,4 +62,3 @@ class PostStatusDetector:
         ]
         loop.run_until_complete(asyncio.wait(tasks))
         self.SavePostStatus()
-        

@@ -1,6 +1,4 @@
 from base64 import b64decode
-from genericpath import exists
-from os import mkdir
 
 
 class ImageSaveController:
@@ -23,5 +21,7 @@ class ImageSaveController:
         imgBytes = b64decode(imgBase64)
         with open(imgPath, 'wb+') as f:
             f.write(imgBytes)
+
+
 """ geetest_canvas_bg geetest_absolute", "./Captcha/bg.png
     geetest_canvas_fullbg geetest_fade geetest_absolute """

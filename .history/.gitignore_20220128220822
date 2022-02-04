@@ -138,7 +138,7 @@ dmypy.json
 cython_debug/
 
 # config
-.src/resource/config.yml
+.config_template/config.yml
 
 # captcha imgs
 bg.png
