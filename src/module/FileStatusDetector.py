@@ -1,12 +1,13 @@
 '''
 Author: Nancycycycy
-Date: 2022-01-24 21:05:54
+Date: 2022-02-04 21:09:39
 LastEditors: Nancycycycy
-LastEditTime: 2022-02-04 19:22:37
-Description: 帖子状态检测模块
+LastEditTime: 2022-02-04 21:11:46
+Description: 网盘文件状态检测
 
 Copyright (c) 2022 by Nancycycycy, All Rights Reserved.
 '''
+
 import asyncio
 
 from merry import Merry
@@ -23,17 +24,17 @@ merry = Merry()
 logger = Logging()
 
 
-class PostStatusDetector:
+class FileStatusDetector:
 
     def __init__(self) -> None:
         self.results = []
 
-    def BuildPostUrl(self, post: int) -> str:
+    def BuildFileUrl(self, post: int) -> str:
         return f"https://live.acgyouxi.xyz/thread-{post}-1-1.html"
 
     @retry(wait=wait_random(min=1, max=2))
     async def GetPostStatus(self, post: str) -> None:
-        url = self.BuildPostUrl(post)
+        url = self.BuildFileUrl(post)
         response = await AsyncRequest.Get(
             url=url,
             cookies=CookieUtil.CookiesToDict(

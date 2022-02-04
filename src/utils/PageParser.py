@@ -2,7 +2,7 @@
 Author: Nancycycycy
 Date: 2022-01-27 18:26:33
 LastEditors: Nancycycycy
-LastEditTime: 2022-02-04 13:02:23
+LastEditTime: 2022-02-04 19:14:03
 Description: html关键信息分析
 
 Copyright (c) 2022 by Nancycycycy, All Rights Reserved.
@@ -10,8 +10,9 @@ Copyright (c) 2022 by Nancycycycy, All Rights Reserved.
 
 import re
 
+from entity.PostStatus import PostStatus
+from enums.CaptchaResponse import CaptchaResponse
 from enums.CommentResponse import CommentResponse
-from vo.PostStatus import PostStatus
 
 
 class PageParser:
@@ -73,7 +74,7 @@ class PageParser:
         return PageParser.ReSearchFromHtml(r'(?<=;formhash=).*?(?=")', html)
 
     @staticmethod
-    def ParseCommentResponse(html: str) -> bool:
+    def ParseCommentResponse(html: str) -> CommentResponse:
         if (html.find("回复发布成功") != -1):
             return CommentResponse.success
         elif (html.find("您所在的用户组每小时限制发回帖") != -1):
@@ -82,3 +83,12 @@ class PageParser:
             return CommentResponse.intervalLimit
         elif (html.find("您当前的访问请求当中含有非法字符，已经被系统拒绝")):
             return CommentResponse.illegalRequest
+        else:
+            return CommentResponse.unknown
+
+    @staticmethod
+    def ParseCaptchaResponse(html: str) -> CaptchaResponse:
+        if (html.find("该文件已在橘猫云目录中") != -1 or html.find("转存成功") != -1):
+            return CaptchaResponse.success
+        else:
+            return CaptchaResponse.unknown

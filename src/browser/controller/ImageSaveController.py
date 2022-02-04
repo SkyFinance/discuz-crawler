@@ -1,4 +1,17 @@
+'''
+Author: Nancycycycy
+Date: 2022-01-27 18:26:33
+LastEditors: Nancycycycy
+LastEditTime: 2022-02-04 16:58:14
+Description: 控制浏览器保存图片
+
+Copyright (c) 2022 by Nancycycycy, All Rights Reserved.
+'''
 from base64 import b64decode
+
+from utils.Logging import Logging
+
+logger = Logging()
 
 
 class ImageSaveController:
@@ -21,7 +34,3 @@ class ImageSaveController:
         imgBytes = b64decode(imgBase64)
         with open(imgPath, 'wb+') as f:
             f.write(imgBytes)
-
-
-""" geetest_canvas_bg geetest_absolute", "./Captcha/bg.png
-    geetest_canvas_fullbg geetest_fade geetest_absolute """

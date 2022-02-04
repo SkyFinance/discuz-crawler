@@ -35,7 +35,7 @@ class CommentPublisher:
         merry.g.publisher = self
 
     def ReadPosts(self):
-        return DataStore().ReadVOs("./data/Status.csv")
+        return DataStore().ReadEntities("./data/Status.csv")
 
     def NeededToComment(self) -> queue.Queue:
         postList = list(

@@ -2,7 +2,7 @@
 Author: Nancycycycy
 Date: 2022-01-26 14:21:51
 LastEditors: Nancycycycy
-LastEditTime: 2022-02-04 13:11:49
+LastEditTime: 2022-02-04 21:15:51
 Description: 入口模块
 
 Copyright (c) 2022 by Nancycycycy, All Rights Reserved.
@@ -13,6 +13,7 @@ import sys
 from module.CommentPublisher import CommentPublisher
 from module.FeiMaoDiskTransferor import FeiMaoDiskTransferor
 from module.PostStatusDetector import PostStatusDetector
+from src.module.FileStatusDetector import FileStatusDetector
 from utils.Banner import Banner
 from utils.Logging import Logging
 
@@ -33,19 +34,22 @@ def main(argv):
     for opt, arg in opts:
         if opt == '-h':
             print(
-                '"python main.py -d" detect all posts and save the results to /Data/Status.csv'
+                '"python main.py -d" detect all posts and save the results'
             )
             print(
-                '"python main.py -c" comment all available posts in /Data/Status.csv'
+                '"python main.py -c" comment all available posts'
             )
             print(
-                '"python main.py -f" selenium transform pan in /Data/Status.csv'
+                '"python main.py -f" selenium transform pan'
+            )
+            print(
+                '"python main.py -k" detect all disk file'
             )
             sys.exit()
         elif (opt == "-d"):
             logger.Info("Start to detect threads.")
             detector = PostStatusDetector()
-            detector.StartCorotinue()
+            detector.StartCoroutine()
         elif (opt == "-c"):
             logger.Info("Start to comment threads.")
             commentPublisher = CommentPublisher()
@@ -54,6 +58,10 @@ def main(argv):
             logger.Info("Start to transfer resource.")
             feiMaoDiskTransferor = FeiMaoDiskTransferor()
             feiMaoDiskTransferor.StartTasks()
+        elif (opt == "-k"):
+            logger.Info("Start to transfer resource.")
+            fileStatusDetector = FileStatusDetector()
+            fileStatusDetector.StartTasks()
 
 
 if (__name__ == "__main__"):

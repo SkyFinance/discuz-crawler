@@ -27,7 +27,8 @@ ps:飞猫云需要开通VIP
 |---|---|---|
 |PostStatusDetector|查看帖子状态，收集信息|-d|
 |CommentPublisher|回复隐藏资源的帖子|-c|
-|FeiMaoDiskTransferor|转存所有飞猫云资源|-p|
+|FeiMaoDiskTransferor|转存所有飞猫云资源|-f|
+|FileStatusDetector|查看网盘文件状态，手机信息|-k|
 
 ### 技术选型
 | 名称 | 描述 |
@@ -45,6 +46,8 @@ ps:飞猫云需要开通VIP
 1. 克隆仓库
 ```
 git clone https://gitee.com/xsdwptg/discuz-crawler.git # Gitee仓库
+```
+```
 git clone https://github.com/Nancycycycy/discuz-crawler.git # 或Github仓库
 ```
 2. 安装依赖
@@ -104,8 +107,15 @@ pip install -r requirements.txt
     1. 飞猫云cookie获取同理
 8. 运行程序
    ```
-   python main.py -d # 运行PostStatusDetector模块
-   python main.py -c # 运行CommentPublisher模块
-   python main.py -p # 运行FeiMaoDiskTransferor模块
+   python ./src/main.py -d # 运行PostStatusDetector模块
+   ```
+   ```
+   python ./src/main.py -c # 运行CommentPublisher模块
+   ```
+   ```
+   python ./src/main.py -p # 运行FeiMaoDiskTransferor模块
+   ```
+   ```
+   python ./src/main.py -k # 运行FileStatusDetector模块
    ```
 

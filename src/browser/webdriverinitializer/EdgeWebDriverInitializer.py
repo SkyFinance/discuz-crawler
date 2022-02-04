@@ -1,5 +1,13 @@
-from msedge.selenium_tools import Edge, EdgeOptions
+'''
+Author: Nancycycycy
+Date: 2022-01-27 18:26:33
+LastEditors: Nancycycycy
+LastEditTime: 2022-02-04 21:31:43
+Description: Edge驱动初始化
 
+Copyright (c) 2022 by Nancycycycy, All Rights Reserved.
+'''
+from msedge.selenium_tools import Edge, EdgeOptions
 from utils.ConfigLoader import ConfigLoader
 
 

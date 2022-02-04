@@ -5,10 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "网盘文件检测模块",
+            "type": "python",
+            "request": "launch",
+            "program": "./src/main.py",
+            "args": ["-k"],
+            "console": "integratedTerminal"
+        },
+        {
             "name": "评论模块",
             "type": "python",
             "request": "launch",
-            "program": "./main.py",
+            "program": "./src/main.py",
             "args": ["-c"],
             "console": "integratedTerminal"
         },
@@ -16,7 +24,7 @@
             "name": "帖子状态检测模块",
             "type": "python",
             "request": "launch",
-            "program": "./main.py",
+            "program": "./src/main.py",
             "args": ["-d"],
             "console": "integratedTerminal"
         },
@@ -24,7 +32,7 @@
             "name": "飞猫云转存模块",
             "type": "python",
             "request": "launch",
-            "program": "./main.py",
+            "program": "./src/main.py",
             "args": ["-f"],
             "console": "integratedTerminal"
         }

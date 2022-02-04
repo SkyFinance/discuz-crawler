@@ -1,10 +1,11 @@
 driver: 
   type: Chrome
-  path: ./resource/chromedriver.exe
-  threads: 2 # selenium线程数
+  path: ./src/resource/chromedriver.exe
+  threads: 1 # selenium线程数
+  headless: False #是否有界面，生产环境无界面，调试时开启
 cookies:
   site: __51cke__=; JmA9_2132_sid=d8Z0R3; JmA9_2132_noticeTitle=1; JmA9_2132_saltkey=gmoYhqG5; JmA9_2132_lastvisit=1642932653; JmA9_2132_sendmail=1; JmA9_2132_seccode=11444.af24a1106cacb824ad; JmA9_2132_ulastactivity=0f34nsan6bGrlS99gl%2FSaL5XeQlULKXdVd7H7MparzWX3ASoLBHW; JmA9_2132_auth=6e7alWVQbD%2BkJ0YK3Fg4ljPZW8KwzW0myZdqokMyhTiRzcVZFEB2%2BCdtg%2B9h1lEaKq7QK49Hn2LNPXElOlGGEM9R%2BAo; JmA9_2132_lastcheckfeed=678433%7C1642936291; JmA9_2132_lip=120.208.27.69%2C1642936239; JmA9_2132_st_t=678433%7C1642936295%7Cb3fa5c06eab5f4559d1356fe02f65663; JmA9_2132_atarget=1; JmA9_2132_forum_lastvisit=D_39_1642936295; JmA9_2132_visitedfid=39; __tins__19858129=%7B%22sid%22%3A%201642934880921%2C%20%22vd%22%3A%207%2C%20%22expires%22%3A%201642938078831%7D; __51laig__=27; JmA9_2132_lastact=1642936296%09misc.php%09patch
-  feimao: PHPSESSID=f6uve18h6es902m2efouv2qh61; view_stat=1; feemootoken=MDAwMDAwMDAwMJbfe2eakXHNtMuAro-Xs8-DdX3JmKqZnYPOq4eEqXatf7qKoJuKbaE.MDAwMDAwMDAwMJbfe6eYbH3NtMuAlp2ZxduRn4nNmLpvqoDSr6mTt3qnetOdn5l8eZqyto-ThtDN4IZ2ltuD3K2djr3JqnrOoKx_0IJog41927Pcg92FqayXmImEyoXMf2eCqcxmgLh2rnrUYXQ.44f3614a3d3ccedaaf9d3e424c7a516d359a7b8535838e5ff60641dca3629289; tcode=9DD953526EC01312-3B756381A55F8874
+  feimao: PHPSESSID=ivij4n5cmb1qt7gqk7mlsri5r3; feemootoken=MDAwMDAwMDAwMJbfe2eakXHNtMuAro-Xs8-DdX3JmKqZnYPOq4eEqXatf7qKoJuKbaE.MDAwMDAwMDAwMJbfe6eYbH3NtMuAlp2ZxduRn4nNmLpvqoDSr6mTt3qnetOdn5l8eZqyto-ThuDNmISchNmD3K2djr3JqnrOoKx_0IJpg42FlLOme92FqayXmImEyoXMf2eCqcxmgLh2rnrUYXQ.61a84eb654bb236055d5c197e5338a27363166e87f93a139e3a560aaf3ed67fb
 edge:
   bin_path:
 crawler:

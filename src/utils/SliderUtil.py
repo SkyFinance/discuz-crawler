@@ -2,12 +2,11 @@
 Author: Nancycycycy
 Date: 2022-01-27 18:26:33
 LastEditors: Nancycycycy
-LastEditTime: 2022-02-04 13:02:44
+LastEditTime: 2022-02-04 20:46:04
 Description: 滑块计算工具类
 
 Copyright (c) 2022 by Nancycycycy, All Rights Reserved.
 '''
-
 
 from PIL.Image import Image
 
@@ -82,3 +81,27 @@ class SliderUtil:
             forwardTracks.append(round(s))
         backTracks = [-3, -3, -2, -2, -2, -2, -2, -1, -1, -1]
         return {'forward_tracks': forwardTracks, 'back_tracks': backTracks}
+
+    def __ease_out_expo(sep):
+        if sep == 1:
+            return 1
+        else:
+            return 1 - pow(2, -10 * sep)
+
+    @staticmethod
+    def GenerateTrack(distance: int) -> list:
+        def __easeOutExpo(sep):
+            if sep == 1:
+                return 1
+            else:
+                return 1 - pow(2, -10 * sep)
+        slideTrack = []
+        count = 30 + int(distance / 2)
+        _x = 0
+        for i in range(count):
+            x = round(__easeOutExpo(i / count) * distance)
+            if x == _x:
+                continue
+            slideTrack.append(x - _x)
+            _x = x
+        return slideTrack
