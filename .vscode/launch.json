@@ -5,10 +5,27 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: 运行",
+            "name": "评论模块",
             "type": "python",
             "request": "launch",
             "program": "./main.py",
+            "args": ["-c"],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "帖子状态检测模块",
+            "type": "python",
+            "request": "launch",
+            "program": "./main.py",
+            "args": ["-d"],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "飞猫云转存模块",
+            "type": "python",
+            "request": "launch",
+            "program": "./main.py",
+            "args": ["-f"],
             "console": "integratedTerminal"
         }
     ]

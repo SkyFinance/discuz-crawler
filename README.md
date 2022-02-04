@@ -56,7 +56,12 @@ pip install -r requirements.txt
    根据自己的浏览器版本下载对应驱动
 - Edge驱动: https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/
 - Chrome驱动: https://npm.taobao.org/mirrors/chromedriver
-4. 配置驱动
+
+4. 复制配置模板文件
+   
+   复制 `./config_template/config.yml` 到 `./src/resource/config.yml`
+   
+5. 配置驱动
    
    - 打开config.yml，在driver的path项中输入驱动路径
    ```
@@ -73,14 +78,14 @@ pip install -r requirements.txt
    edge:
       bin_path: C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
    ``` 
-5. 配置爬虫
+6. 配置爬虫
    ```
    thread_min: 100 # 帖子ID最小值
    thread_max: 500 # 帖子ID最大值
    comment_sleep: 11 # 评论间隔时间
    comment_message: 66666666666666666 #评论内容
    ```
-6. 配置Cookie
+7. 配置Cookie
    
    在cookies配置项中分别写入目标论坛和飞猫云的Cookie
     _____
@@ -97,7 +102,7 @@ pip install -r requirements.txt
     1. 刷新当前页面，选中开发者工具中出现的项，在请求头部分中找到cookie项，复制"cookie: "之后的值
    ![](./image/readme_05.png)
     1. 飞猫云cookie获取同理
-7. 运行程序
+8. 运行程序
    ```
    python main.py -d # 运行PostStatusDetector模块
    python main.py -c # 运行CommentPublisher模块

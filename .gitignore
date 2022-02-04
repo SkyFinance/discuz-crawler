@@ -140,6 +140,9 @@ cython_debug/
 # config
 .src/resource/config.yml
 
+# counter
+..VSCodeCounter/
+
 # captcha imgs
 bg.png
 fullbg.png
