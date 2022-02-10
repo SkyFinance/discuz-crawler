@@ -1,8 +1,8 @@
 '''
 Author: Nancycycycy
 Date: 2022-01-27 18:26:33
-LastEditors: Nancycycycy
-LastEditTime: 2022-02-04 20:07:46
+LastEditors: Yaaprogrammer
+LastEditTime: 2022-02-10 20:48:26
 Description: 封装浏览器类
 
 Copyright (c) 2022 by Nancycycycy, All Rights Reserved.
@@ -13,18 +13,17 @@ import selenium.webdriver.support.expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
-from utils.ConfigLoader import ConfigLoader
+from utils.Configuration import Configuration
 
-from browser.webdriverinitializer.ChromeWebDriverInitializer import \
+from browser.initializer.ChromeWebDriverInitializer import \
     ChromeWebDriverInitializer
-from browser.webdriverinitializer.EdgeWebDriverInitializer import \
+from browser.initializer.EdgeWebDriverInitializer import \
     EdgeWebDriverInitializer
 
 
 class Browser:
     def __init__(self) -> None:
-        config = ConfigLoader.Get()
-        driverType = config["driver"]["type"]
+        driverType = Configuration.GetProperty("driver.type")
         if(driverType == "Edge"):
             self.driver = EdgeWebDriverInitializer().GetWebDriver()
         elif(driverType == "Chrome"):

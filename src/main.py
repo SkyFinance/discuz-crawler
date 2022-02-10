@@ -1,8 +1,8 @@
 '''
 Author: Nancycycycy
 Date: 2022-01-26 14:21:51
-LastEditors: Nancycycycy
-LastEditTime: 2022-02-04 21:15:51
+LastEditors: Yaaprogrammer
+LastEditTime: 2022-02-10 22:26:24
 Description: 入口模块
 
 Copyright (c) 2022 by Nancycycycy, All Rights Reserved.
@@ -12,8 +12,8 @@ import sys
 
 from module.CommentPublisher import CommentPublisher
 from module.FeiMaoDiskTransferor import FeiMaoDiskTransferor
+from module.FileStatusDetector import FileStatusDetector
 from module.PostStatusDetector import PostStatusDetector
-from src.module.FileStatusDetector import FileStatusDetector
 from utils.Banner import Banner
 from utils.Logging import Logging
 
@@ -49,7 +49,6 @@ def main(argv):
         elif (opt == "-d"):
             logger.Info("Start to detect threads.")
             detector = PostStatusDetector()
-            detector.StartCoroutine()
         elif (opt == "-c"):
             logger.Info("Start to comment threads.")
             commentPublisher = CommentPublisher()

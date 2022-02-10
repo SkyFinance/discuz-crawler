@@ -1,8 +1,8 @@
 '''
 Author: Nancycycycy
 Date: 2022-01-26 11:44:42
-LastEditors: Nancycycycy
-LastEditTime: 2022-02-04 13:05:59
+LastEditors: Yaaprogrammer
+LastEditTime: 2022-02-10 21:41:26
 Description: 评论发布模块
 
 Copyright (c) 2022 by Nancycycycy, All Rights Reserved.
@@ -16,12 +16,8 @@ from exceptions.CommentIntervalLimitError import CommentIntervalLimitError
 from exceptions.CommentPerHourLimitError import CommentPerHourLimitError
 from exceptions.CommentPublishError import CommentPublishError
 from merry import Merry
-from utils.ConfigLoader import ConfigLoader
-from utils.CookieUtil import CookieUtil
-from utils.DataStore import DataStore
+from utils.Configuration import Configuration
 from utils.Logging import Logging
-from utils.PageParser import PageParser
-from utils.SyncRequest import SyncRequest
 
 merry = Merry()
 merry.logger.disabled = True
@@ -35,13 +31,12 @@ class CommentPublisher:
         merry.g.publisher = self
 
     def ReadPosts(self):
-        return DataStore().ReadEntities("./data/Status.csv")
+        pass
 
     def NeededToComment(self) -> queue.Queue:
         postList = list(
             filter(
-                lambda post: post.isAvailable == "True" and post.isLocked ==
-                "True", self.ReadPosts()))
+                lambda post: post.isAvailable == "True" and post.isLocked == "True", self.ReadPosts()))
         postQueue = queue.Queue()
         for post in postList:
             postQueue.put(post)
@@ -54,7 +49,7 @@ class CommentPublisher:
 
     def BuildCommentPostData(self, post):
         return {
-            "message": ConfigLoader.Get()["crawler"]["comment_message"],
+            "message": Configuration.GetProperty("crawler.comment_message"),
             "formhash": post.formhash,
             "usesig": "",
             "subject": ""
@@ -62,15 +57,13 @@ class CommentPublisher:
 
     @merry._try
     def CommentPost(self, post):
-        sleep(ConfigLoader.Get()["crawler"]["comment_sleep"])
-        merry.g.post = post
+        sleep(Configuration.GetProperty()["crawler"]["comment_sleep"])
+        """ merry.g.post = post
         postData = self.BuildCommentPostData(post)
         url = self.BuildCommentUrl(post)
         cookies = CookieUtil.CookiesToDict(
-            ConfigLoader.Get()["cookies"]["site"])
-        response = SyncRequest.Post(cookies=cookies, url=url, data=postData)
-        commentResult = PageParser.ParseCommentResponse(response)
-        self.HandleCommentResult(commentResult, post)
+            Configuration.GetProperty()["cookies"]["site"])
+        self.HandleCommentResult(commentResult, post) """
 
     @merry._try
     def HandleCommentResult(self, commentResult, post):

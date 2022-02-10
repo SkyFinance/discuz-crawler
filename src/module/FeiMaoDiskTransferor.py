@@ -1,8 +1,8 @@
 '''
 Author: Nancycycycy
 Date: 2022-01-23 16:24:14
-LastEditors: Nancycycycy
-LastEditTime: 2022-02-04 21:18:48
+LastEditors: Yaaprogrammer
+LastEditTime: 2022-02-10 21:42:22
 Description: 飞猫云盘转存模块
 
 Copyright (c) 2022 by Nancycycycy, All Rights Reserved.
@@ -18,11 +18,9 @@ from browser.controller.ImageSaveController import ImageSaveController
 from browser.controller.SliderController import SliderController
 from enums.CaptchaResponse import CaptchaResponse
 from merry import Merry
-from utils.ConfigLoader import ConfigLoader
+from utils.Configuration import Configuration
 from utils.CookieUtil import CookieUtil
-from utils.DataStore import DataStore
 from utils.Logging import Logging
-from utils.PageParser import PageParser
 
 logger = Logging()
 merry = Merry()
@@ -36,9 +34,9 @@ class FeiMaoDiskTransferor:
 
     def GetTransferTasks(self):
         taskQueue = queue.Queue()
-        for post in filter(lambda status: len(status.feiMao) > 0,
-                           DataStore().ReadEntities("./src/data/status.csv")):
-            taskQueue.put(post)
+        """ for post in filter(lambda status: len(status.feiMao) > 0,
+                           DataStore().ReadLinesToEntitiesAutomatically("./src/data/status.csv")):
+            taskQueue.put(post) """
         return taskQueue
 
     def CleanCaptcha(self):
@@ -48,7 +46,7 @@ class FeiMaoDiskTransferor:
     def LoginFeimao(self, browser):
         browser.Get('https://www.feimaoyun.com/home')
         browser.AddCookies(
-            CookieUtil.CookiesToDict(ConfigLoader.Get()["cookies"]["feimao"]),
+            CookieUtil.CookiesToDict(Configuration.GetProperty()["cookies"]["feimao"]),
             "www.feimaoyun.com")
         logger.Success(f"thread:{current_thread().ident},login feimao success")
 
@@ -115,7 +113,7 @@ class FeiMaoDiskTransferor:
 
     def StartTasks(self):
         threadList = []
-        for t in range(ConfigLoader.Get()["driver"]["threads"]):
+        for t in range(Configuration.GetProperty()["driver"]["threads"]):
             thread = Thread(target=self.Process)
             threadList.append(thread)
             thread.start()

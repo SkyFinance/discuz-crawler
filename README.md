@@ -30,7 +30,7 @@ ps:飞猫云需要开通VIP
 |FeiMaoDiskTransferor|转存所有飞猫云资源|-f|
 |FileStatusDetector|查看网盘文件状态，手机信息|-k|
 
-### 技术选型
+### 依赖
 | 名称 | 描述 |
 | --- | --- |
 | Selenium | 模拟操作浏览器 |
@@ -113,7 +113,7 @@ pip install -r requirements.txt
    python ./src/main.py -c # 运行CommentPublisher模块
    ```
    ```
-   python ./src/main.py -p # 运行FeiMaoDiskTransferor模块
+   python ./src/main.py -f # 运行FeiMaoDiskTransferor模块
    ```
    ```
    python ./src/main.py -k # 运行FileStatusDetector模块

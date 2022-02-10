@@ -138,10 +138,7 @@ dmypy.json
 cython_debug/
 
 # config
-.src/resource/config.yml
-
-# counter
-..VSCodeCounter/
+src/resource/config.yml
 
 # captcha imgs
 bg.png
