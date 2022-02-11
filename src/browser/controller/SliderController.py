@@ -1,11 +1,11 @@
 '''
-Author: Nancycycycy
+Author: Yaaprogrammer
 Date: 2022-01-27 18:26:33
-LastEditors: Nancycycycy
+LastEditors: Yaaprogrammer
 LastEditTime: 2022-02-04 20:21:12
 Description: 滑动验证码控制器
 
-Copyright (c) 2022 by Nancycycycy, All Rights Reserved.
+Copyright (c) 2022 by Yaaprogrammer, All Rights Reserved.
 '''
 from threading import current_thread
 

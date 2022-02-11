@@ -1,11 +1,11 @@
 '''
-Author: Nancycycycy
+Author: Yaaprogrammer
 Date: 2022-01-27 18:26:33
 LastEditors: Yaaprogrammer
 LastEditTime: 2022-02-10 21:15:54
 Description: 封装日志类
 
-Copyright (c) 2022 by Nancycycycy, All Rights Reserved.
+Copyright (c) 2022 by Yaaprogrammer, All Rights Reserved.
 '''
 
 import datetime

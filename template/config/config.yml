@@ -1,13 +1,23 @@
 driver: 
   type: Chrome
-  path: ./resource/chromedriver.exe
+  path: ./src/resource/chromedriver.exe
+  threads: 5 # selenium线程数
+  headless: True #是否无头模式
+database:
+  mysql:
+    user: root
+    password:
+    db_name: discuz_crawler
+    host: localhost
+    port: 3306
 cookies:
-  site: 你的Cookies 
-  feimao: 你的Cookies
+  site: 你的cookies
+  feimao: 你的cookies
 edge:
   bin_path:
 crawler:
-  thread_min: 100
-  thread_max: 500
-  comment_sleep: 11
-  comment_message: 66666666666666666
+  semaphore: 100 # PostStatusDetector模块异步爬虫的信号量，越大越快，但是可能卡住
+  thread_min: 100 # PostStatusDetector模块爬取帖子ID的最小值
+  thread_max: 200 # PostStatusDetector模块爬取帖子ID的最大值
+  comment_sleep: 11 # CommentPublisher模块评论间隔时间(单位:s)
+  comment_message: 66666666666666666 # CommentPublisher模块评论内容

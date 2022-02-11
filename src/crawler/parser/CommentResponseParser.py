@@ -2,7 +2,7 @@
 Author: Yaaprogrammer
 Date: 2022-02-10 20:36:31
 LastEditors: Yaaprogrammer
-LastEditTime: 2022-02-10 22:19:17
+LastEditTime: 2022-02-11 22:45:49
 
 Copyright (c) 2022 by Yaaprogrammer, All Rights Reserved.
 '''
@@ -11,9 +11,6 @@ from enums.CommentResponse import CommentResponse
 
 
 class CommentResponseParser(BaseParser):
-
-    def __init__(self, html: str):
-        super.__init__(html)
 
     def __ParseCommentResponse(self) -> CommentResponse:
         if (self.html.find("回复发布成功") != -1):

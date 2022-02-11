@@ -1,11 +1,11 @@
 '''
-Author: Nancycycycy
+Author: Yaaprogrammer
 Date: 2022-01-26 14:21:51
 LastEditors: Yaaprogrammer
-LastEditTime: 2022-02-10 22:26:24
+LastEditTime: 2022-02-11 23:10:12
 Description: 入口模块
 
-Copyright (c) 2022 by Nancycycycy, All Rights Reserved.
+Copyright (c) 2022 by Yaaprogrammer, All Rights Reserved.
 '''
 import getopt
 import sys
@@ -49,6 +49,7 @@ def main(argv):
         elif (opt == "-d"):
             logger.Info("Start to detect threads.")
             detector = PostStatusDetector()
+            detector.Start()
         elif (opt == "-c"):
             logger.Info("Start to comment threads.")
             commentPublisher = CommentPublisher()

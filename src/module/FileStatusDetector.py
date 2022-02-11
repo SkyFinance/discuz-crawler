@@ -1,11 +1,11 @@
 '''
-Author: Nancycycycy
+Author: Yaaprogrammer
 Date: 2022-02-04 21:09:39
 LastEditors: Yaaprogrammer
 LastEditTime: 2022-02-10 21:52:56
 Description: 网盘文件状态检测
 
-Copyright (c) 2022 by Nancycycycy, All Rights Reserved.
+Copyright (c) 2022 by Yaaprogrammer, All Rights Reserved.
 '''
 from utils.Configuration import Configuration
 from utils.CookieUtil import CookieUtil

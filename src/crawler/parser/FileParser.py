@@ -2,7 +2,7 @@
 Author: Yaaprogrammer
 Date: 2022-02-09 17:21:52
 LastEditors: Yaaprogrammer
-LastEditTime: 2022-02-10 22:08:05
+LastEditTime: 2022-02-11 22:42:48
 
 Copyright (c) 2022 by Yaaprogrammer, All Rights Reserved.
 '''
@@ -10,9 +10,6 @@ from crawler.parser.BaseParser import BaseParser
 
 
 class FileParser(BaseParser):
-
-    def __init__(self, html: str) -> None:
-        super().__init__(html)
 
     def __GetName(self):
         pattern = r'(?<=<span class="fileName">).*?(?=</span>)'

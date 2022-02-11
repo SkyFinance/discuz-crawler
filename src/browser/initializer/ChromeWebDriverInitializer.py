@@ -1,11 +1,11 @@
 '''
-Author: Nancycycycy
+Author: Yaaprogrammer
 Date: 2022-01-27 18:26:33
 LastEditors: Yaaprogrammer
 LastEditTime: 2022-02-10 20:46:38
 Description: Chrome驱动初始化
 
-Copyright (c) 2022 by Nancycycycy, All Rights Reserved.
+Copyright (c) 2022 by Yaaprogrammer, All Rights Reserved.
 '''
 from threading import current_thread
 from webbrowser import Chrome

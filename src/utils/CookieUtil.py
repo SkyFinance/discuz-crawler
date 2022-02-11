@@ -1,11 +1,11 @@
 '''
-Author: Nancycycycy
+Author: Yaaprogrammer
 Date: 2022-01-27 18:26:33
-LastEditors: Nancycycycy
-LastEditTime: 2022-02-04 13:01:18
+LastEditors: Yaaprogrammer
+LastEditTime: 2022-02-11 22:56:58
 Description: Cookie工具
 
-Copyright (c) 2022 by Nancycycycy, All Rights Reserved.
+Copyright (c) 2022 by Yaaprogrammer, All Rights Reserved.
 '''
 
 
@@ -23,7 +23,7 @@ class CookieUtil:
         """
         cookies = {}
         for data in cookiesString.split("; "):
-            key = data.split('=', 1)[0]  # (以'='切割，1为切割1次)
+            key = data.split('=', 1)[0]
             value = data.split('=', 1)[1]
             cookies[key] = value
         return cookies

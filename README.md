@@ -4,7 +4,7 @@
 使用selenium对Discuz建站的论坛发布资源进行爬取，自动评论获取隐藏内容，转存飞猫云
 
 ### 项目地址
-Github: https://github.com/Nancycycycy/discuz-crawler
+Github: https://github.com/Yaaprogrammer/discuz-crawler
 
 Gitee: https://gitee.com/xsdwptg/discuz-crawler
 
@@ -48,7 +48,7 @@ ps:飞猫云需要开通VIP
 git clone https://gitee.com/xsdwptg/discuz-crawler.git # Gitee仓库
 ```
 ```
-git clone https://github.com/Nancycycycy/discuz-crawler.git # 或Github仓库
+git clone https://github.com/Yaaprogrammer/discuz-crawler.git # 或Github仓库
 ```
 2. 安装依赖
 ```

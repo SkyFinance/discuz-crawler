@@ -1,11 +1,11 @@
 '''
-Author: Nancycycycy
+Author: Yaaprogrammer
 Date: 2022-01-27 18:26:33
-LastEditors: Nancycycycy
+LastEditors: Yaaprogrammer
 LastEditTime: 2022-02-04 16:58:14
 Description: 控制浏览器保存图片
 
-Copyright (c) 2022 by Nancycycycy, All Rights Reserved.
+Copyright (c) 2022 by Yaaprogrammer, All Rights Reserved.
 '''
 from base64 import b64decode
 

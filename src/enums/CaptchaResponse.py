@@ -1,11 +1,11 @@
 '''
-Author: Nancycycycy
+Author: Yaaprogrammer
 Date: 2022-02-04 19:02:31
-LastEditors: Nancycycycy
+LastEditors: Yaaprogrammer
 LastEditTime: 2022-02-04 19:04:11
 Description: 验证码返回状态
 
-Copyright (c) 2022 by Nancycycycy, All Rights Reserved.
+Copyright (c) 2022 by Yaaprogrammer, All Rights Reserved.
 '''
 from enum import Enum
 

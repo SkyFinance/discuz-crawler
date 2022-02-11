@@ -2,7 +2,7 @@
 Author: Yaaprogrammer
 Date: 2022-02-10 17:31:58
 LastEditors: Yaaprogrammer
-LastEditTime: 2022-02-10 22:40:50
+LastEditTime: 2022-02-11 23:05:08
 
 Copyright (c) 2022 by Yaaprogrammer, All Rights Reserved.
 '''
@@ -13,9 +13,6 @@ logger = Logging()
 
 
 class PostParser(BaseParser):
-    def __init__(self, html: str):
-        
-        super.__init__(html)
 
     def __IsAvailable(self) -> bool:
         return self.html.find("抱歉，指定的主题不存在或已被删除或正在被审核") == -1 and self.html.find(
@@ -44,12 +41,11 @@ class PostParser(BaseParser):
         return self.ReSearchFromHtml(r'(?<=;formhash=).*?(?=")', self.html)
 
     def GetResult(self) -> dict:
-        logger.Debug("create")
         return {"thread_id": self.__GetThreadId(),
                 "forum_id": self.__GetForumId(),
                 "formhash": self.__GetFormhash(),
                 "password_unzip": self.__GetPasswordUnzip(),
                 "title": self.__GetTitle(),
-                "feimao_key": self.__GetFeimaoKey(),
+                "key": self.__GetFeimaoKey(),
                 "is_available": self.__IsAvailable(),
                 "is_locked": self.__IsLocked()}

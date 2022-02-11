@@ -1,11 +1,11 @@
 '''
-Author: Nancycycycy
+Author: Yaaprogrammer
 Date: 2022-01-23 16:24:14
 LastEditors: Yaaprogrammer
 LastEditTime: 2022-02-10 21:42:22
 Description: 飞猫云盘转存模块
 
-Copyright (c) 2022 by Nancycycycy, All Rights Reserved.
+Copyright (c) 2022 by Yaaprogrammer, All Rights Reserved.
 '''
 import os
 import queue

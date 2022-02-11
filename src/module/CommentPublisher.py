@@ -1,11 +1,11 @@
 '''
-Author: Nancycycycy
+Author: Yaaprogrammer
 Date: 2022-01-26 11:44:42
 LastEditors: Yaaprogrammer
 LastEditTime: 2022-02-10 21:41:26
 Description: 评论发布模块
 
-Copyright (c) 2022 by Nancycycycy, All Rights Reserved.
+Copyright (c) 2022 by Yaaprogrammer, All Rights Reserved.
 '''
 import queue
 from time import sleep
