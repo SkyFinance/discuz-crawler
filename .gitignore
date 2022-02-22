@@ -141,8 +141,10 @@ cython_debug/
 src/resource/config.yml
 
 # captcha imgs
-bg.png
-fullbg.png
+src/captcha/*.png
 
 # drivers
 *.exe
+
+#logs
+logs/

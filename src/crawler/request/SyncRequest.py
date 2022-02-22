@@ -10,6 +10,7 @@ Copyright (c) 2022 by Yaaprogrammer, All Rights Reserved.
 
 import requests
 from merry import Merry
+from tenacity import retry, stop_after_attempt, wait_random
 from utils.Logging import Logging
 
 merry = Merry()
@@ -19,6 +20,7 @@ class SyncRequest(object):
 
     @staticmethod
     @merry._try
+    @retry(wait=wait_random(min=1, max=2), stop=stop_after_attempt(3))
     def Post(url: str, data: dict, cookies: dict) -> str:
         """同步Post方法
 

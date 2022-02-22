@@ -2,13 +2,13 @@
 Author: Yaaprogrammer
 Date: 2022-01-24 21:05:54
 LastEditors: Yaaprogrammer
-LastEditTime: 2022-02-11 23:09:56
+LastEditTime: 2022-02-22 16:54:57
 Description: 帖子状态检测模块
 
 Copyright (c) 2022 by Yaaprogrammer, All Rights Reserved.
 '''
 from crawler.AsyncCrawler import AsyncCrawler
-from crawler.parameter.AsyncCrawlerParameter import AsyncCrawlerParameter
+from crawler.parameter.CrawlerParameter import CrawlerParameter
 from crawler.parser.PostParser import PostParser
 from crawler.pipeline.PostPipeline import PostPipeline
 from merry import Merry
@@ -29,10 +29,11 @@ class PostStatusDetector:
             Configuration.GetProperty("cookies.site"))
         pipeline = PostPipeline()
         parser = PostParser()
-        parameter = AsyncCrawlerParameter(urlList=urlList,
-                                          cookies=cookies,
-                                          pipeline=pipeline,
-                                          parser=parser)
+        parameter = CrawlerParameter(urlList=urlList,
+                                     cookies=cookies,
+                                     pipeline=pipeline,
+                                     parser=parser,
+                                     method="GET")
         self.crawler = AsyncCrawler(parameter)
 
     def BuildUrlList(self) -> str:

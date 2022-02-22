@@ -2,11 +2,13 @@
 Author: Yaaprogrammer
 Date: 2022-01-27 18:26:33
 LastEditors: Yaaprogrammer
-LastEditTime: 2022-02-04 20:46:04
+LastEditTime: 2022-02-22 20:37:36
 Description: 滑块计算工具类
 
 Copyright (c) 2022 by Yaaprogrammer, All Rights Reserved.
 '''
+
+import random
 
 from PIL.Image import Image
 
@@ -55,53 +57,46 @@ class SliderUtil:
         return False
 
     @staticmethod
-    def GenerateTracks(distance: int) -> dict:
-        """生成轨迹列表
-
-        Args:
-            distance (int): 缺口与起点的距离
-
-        Returns:
-            dict: "forward_tracks":list,"back_tracks":list
+    def GenerateTrack(distance):
         """
-        distance += 20
-        v = 0
-        t = 0.2
-        forwardTracks = []
+        根据偏移量和手动操作模拟计算移动轨迹
+        :param distance: 偏移量
+        :return: 移动轨迹
+        """
+        # 移动轨迹
+        tracks = []
+        # 当前位移
         current = 0
-        mid = distance * 3 / 5
+        # 减速阈值
+        mid = distance * 4 / 5
+        # 时间间隔
+        t = 0.2
+        # 初始速度
+        v = 0
+
         while current < distance:
             if current < mid:
-                a = 2
+                a = random.uniform(2, 5)
             else:
-                a = -3
-            s = v * t + 0.5 * a * (t**2)
-            v = v + a * t
-            current += s
-            forwardTracks.append(round(s))
-        backTracks = [-3, -3, -2, -2, -2, -2, -2, -1, -1, -1]
-        return {'forward_tracks': forwardTracks, 'back_tracks': backTracks}
+                a = -(random.uniform(12.5, 13.5))
+            v0 = v
+            v = v0 + a * t
+            x = v0 * t + 1 / 2 * a * t * t
+            current += x
 
-    def __ease_out_expo(sep):
-        if sep == 1:
-            return 1
-        else:
-            return 1 - pow(2, -10 * sep)
+            if 0.6 < current - distance < 1:
+                x = x - 0.53
+                tracks.append(round(x, 2))
 
-    @staticmethod
-    def GenerateTrack(distance: int) -> list:
-        def __easeOutExpo(sep):
-            if sep == 1:
-                return 1
+            elif 1 < current - distance < 1.5:
+                x = x - 1.4
+                tracks.append(round(x, 2))
+            elif 1.5 < current - distance < 3:
+                x = x - 1.8
+                tracks.append(round(x, 2))
+
             else:
-                return 1 - pow(2, -10 * sep)
-        slideTrack = []
-        count = 30 + int(distance / 2)
-        _x = 0
-        for i in range(count):
-            x = round(__easeOutExpo(i / count) * distance)
-            if x == _x:
-                continue
-            slideTrack.append(x - _x)
-            _x = x
-        return slideTrack
+                tracks.append(round(x, 2))
+
+        print(sum(tracks))
+        return tracks

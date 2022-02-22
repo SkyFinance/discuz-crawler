@@ -2,7 +2,7 @@
 Author: Yaaprogrammer
 Date: 2022-01-27 18:26:33
 LastEditors: Yaaprogrammer
-LastEditTime: 2022-02-10 21:15:54
+LastEditTime: 2022-02-22 15:24:53
 Description: 封装日志类
 
 Copyright (c) 2022 by Yaaprogrammer, All Rights Reserved.
@@ -17,7 +17,7 @@ from loguru import logger
 class Logging:
     __instance = None
     DATE = datetime.datetime.now().strftime('%Y-%m-%d')
-    logPath = os.path.join(os.path.dirname(os.getcwd()), "logs")
+    logPath = os.path.join(os.getcwd(), "logs")
     if not os.path.isdir(logPath):
         os.makedirs(logPath)
     logger.add(

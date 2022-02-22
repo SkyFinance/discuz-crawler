@@ -2,22 +2,18 @@
 Author: Yaaprogrammer
 Date: 2022-01-23 16:24:14
 LastEditors: Yaaprogrammer
-LastEditTime: 2022-02-10 21:42:22
+LastEditTime: 2022-02-22 21:26:19
 Description: 飞猫云盘转存模块
 
 Copyright (c) 2022 by Yaaprogrammer, All Rights Reserved.
 '''
-import os
 import queue
-import shutil
 from threading import Lock, Thread, current_thread
 from time import sleep
 
 from browser.Browser import Browser
-from browser.controller.ImageSaveController import ImageSaveController
-from browser.controller.SliderController import SliderController
-from enums.CaptchaResponse import CaptchaResponse
 from merry import Merry
+from model.File import File
 from utils.Configuration import Configuration
 from utils.CookieUtil import CookieUtil
 from utils.Logging import Logging
@@ -29,91 +25,43 @@ merry = Merry()
 class FeiMaoDiskTransferor:
 
     def __init__(self) -> None:
-        self.taskPosts = self.GetTransferTasks()
+        self.taskFiles = self.GetDownloadTasks()
         self.CleanCaptcha()
 
-    def GetTransferTasks(self):
+    def GetDownloadTasks(self):
         taskQueue = queue.Queue()
-        """ for post in filter(lambda status: len(status.feiMao) > 0,
-                           DataStore().ReadLinesToEntitiesAutomatically("./src/data/status.csv")):
-            taskQueue.put(post) """
+        availableFiles = File.select().where(File.isAvailable == 1)
+        for file in availableFiles:
+            taskQueue.put(file)
         return taskQueue
 
-    def CleanCaptcha(self):
-        shutil.rmtree('./src/captcha')
-        os.mkdir('./src/captcha')
-
-    def LoginFeimao(self, browser):
+    def LoginFeimao(self, browser: Browser):
         browser.Get('https://www.feimaoyun.com/home')
         browser.AddCookies(
-            CookieUtil.CookiesToDict(Configuration.GetProperty()["cookies"]["feimao"]),
+            CookieUtil.CookiesToDict(
+                Configuration.GetProperty("cookies.feimao")),
             "www.feimaoyun.com")
         logger.Success(f"thread:{current_thread().ident},login feimao success")
 
-    def CloseAd(self, browser: Browser):
+    def ClickDownloadButton(self, browser: Browser):
         browser.WaitUtilToClickByXpath(
-            '//*[@id="main-body"]/div/div[8]/div[4]/div[3]/span[1]')
-        logger.Info(f"thread:{current_thread().ident},Ad closed")
+            '/html/body/div/section/section/div[2]/div/div[9]/div[5]/div')
+        logger.Info(f"thread:{current_thread().ident},Downlad button clicked")
 
-    def ClickTransferButton(self, browser: Browser):
-        browser.WaitUtilToClickByXpath(
-            '/html/body/div/section/section/div[2]/div/div[8]/div[1]/div[2]/button'
-        )
-        logger.Info(f"thread:{current_thread().ident},Transfer button clicked")
-        sleep(10)
-
-    def SaveCaptcha(self, browser: Browser):
-        browser.WaitUtilByXpath(
-            "/html/body/div[2]/div[2]/div[6]/div/div[1]/div[2]/div[2]")
-        logger.Info(f"thread:{current_thread().ident},Captcha appeared")
-        imageSaveController = ImageSaveController(browser)
-        imageSaveController.SaveImageFromCanvas(
-            "geetest_canvas_bg geetest_absolute", f"./src/captcha/bg_{current_thread().ident}.png")
-        imageSaveController.SaveImageFromCanvas(
-            "geetest_canvas_fullbg geetest_fade geetest_absolute",
-            f"./src/captcha/fullbg_{current_thread().ident}.png")
-        logger.Info(f"thread:{current_thread().ident},Captcha saved")
-
-    def SlideCaptcha(self, browser: Browser):
-        sliderController = SliderController(browser)
-        sliderController.Slide("geetest_slider_button",
-                               f"./src/captcha/bg_{current_thread().ident}.png",
-                               f"./src/captcha/fullbg_{current_thread().ident}.png")
-
-    @merry._try
     def Process(self):
         browser = Browser()
         self.LoginFeimao(browser)
-        while self.taskPosts.qsize() > 0:
+        while self.taskFiles.qsize() > 0:
             with Lock():
-                post = self.taskPosts.get()
-            merry.g.post = post
-            merry.g.transferor = self
-            browser.Get(post.feiMao)
-            self.CloseAd(browser)
-            self.ClickTransferButton(browser)
-            self.SaveCaptcha(browser)
-            self.SlideCaptcha(browser)
-            """ browser.WaitUtilToClickByXpath("/html/body/div[2]/div[2]/div[4]/div[3]") """
-            sleep(3)
-            captchaResult = PageParser.ParseCaptchaResponse(browser.GetSource())
-            if(captchaResult == CaptchaResponse.success):
-                logger.Success(f"thread:{current_thread().ident},Transfer success Remains:{self.taskPosts.qsize()}")
-            else:
-                logger.Error(f"thread:{current_thread().ident},Transfer failed Remains:{self.taskPosts.qsize()}")
-                """ raise SlideError("转存失败") """
-
-    """ @merry._except(Exception)
-    def HandleException():
-        post = getattr(merry.g, 'post', None)
-        transferor = getattr(merry.g, 'transferor', None)
-        if (post is not None and transferor is not None):
-            with Lock():
-                transferor.taskPosts.put(post) """
+                file = self.taskFiles.get()
+            browser.Get("https://www.feimaoyun.com/s/03mx1nqt")
+            self.ClickDownloadButton(browser)
+            while True:
+                sleep(1)
 
     def StartTasks(self):
         threadList = []
-        for t in range(Configuration.GetProperty()["driver"]["threads"]):
+        for t in range(Configuration.GetProperty("driver.threads")):
             thread = Thread(target=self.Process)
             threadList.append(thread)
             thread.start()
